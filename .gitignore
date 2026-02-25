@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.pyc
+*.log
+debug_page.html
+recon_report.log
+recon_report.json
