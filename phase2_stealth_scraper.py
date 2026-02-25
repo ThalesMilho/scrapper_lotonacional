@@ -25,6 +25,7 @@ class LotteryDraw(BaseModel):
     draw_id: Optional[str] = None
     draw_date: Optional[str] = None
     numbers: list[int] = Field(min_length=5, max_length=25)
+    derived_numbers: list[str] = Field(default_factory=list)
 
     @field_validator("numbers")
     @classmethod
@@ -35,6 +36,20 @@ class LotteryDraw(BaseModel):
             raise ValueError("numbers must contain exactly 5 items")
         if any((n < 0 or n > 9999) for n in v):
             raise ValueError("numbers out of expected range 0-9999")
+        return v
+
+    @field_validator("derived_numbers")
+    @classmethod
+    def validate_derived_numbers(cls, v: list[str]) -> list[str]:
+        if v is None:
+            return []
+        if len(v) not in {0, 5}:
+            raise ValueError("derived_numbers must contain exactly 5 items")
+        for s in v:
+            if not isinstance(s, str):
+                raise ValueError("derived_numbers must be strings")
+            if len(s) != 4 or not s.isdigit():
+                raise ValueError("derived_numbers items must be 4-digit zero-padded strings")
         return v
 
 
@@ -195,8 +210,13 @@ class LotonacionalScraper:
             draw_id=draw_id,
             draw_date=draw_date,
             numbers=numbers,
+            derived_numbers=self._derive_complements(numbers),
         )
         return [draw]
+
+    def _derive_complements(self, numbers: list[int]) -> list[str]:
+        # Derivation rule: complement of 9999 (derived = 9999 - original), zero-padded to 4 digits.
+        return [f"{(9999 - n):04d}" for n in numbers]
 
     async def _handle_possible_waf(self, page: Page, status: Optional[int], headers: dict[str, str]) -> None:
         logger.warning("Possible WAF/anti-bot detected (status=%s). Waiting for challenge to resolve.", status)
