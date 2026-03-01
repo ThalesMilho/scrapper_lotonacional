@@ -1,12 +1,18 @@
 import asyncio
 import json
 import logging
+import os
 import random
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Iterable, Optional
 
+import httpx
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.triggers.cron import CronTrigger
 from pydantic import BaseModel, Field, ValidationError, field_validator
+
+from dotenv import load_dotenv
 
 from playwright.async_api import Browser, BrowserContext, Page, Route, TimeoutError, async_playwright
 
@@ -309,11 +315,156 @@ def _configure_logging(debug: bool) -> None:
     )
 
 
-async def main() -> None:
-    config = ScraperConfig(
-        headless=False,
-        debug=True,
+def _load_env() -> None:
+    load_dotenv(override=False)
+
+
+def _env_bool(key: str, default: bool) -> bool:
+    raw = os.getenv(key)
+    if raw is None:
+        return default
+    return raw.strip().lower() in {"1", "true", "yes", "y", "on"}
+
+
+def _env_int(key: str, default: int) -> int:
+    raw = os.getenv(key)
+    if raw is None or raw.strip() == "":
+        return default
+    return int(raw)
+
+
+def _build_config_from_env() -> ScraperConfig:
+    target_url = os.getenv("SCRAPER_TARGET_URL")
+    if target_url:
+        if not target_url.startswith("http"):
+            raise ValueError("SCRAPER_TARGET_URL must be an absolute URL")
+        base_url = target_url.split("//", 1)[0] + "//" + target_url.split("//", 1)[1].split("/", 1)[0]
+        path = "/" + target_url.split("//", 1)[1].split("/", 1)[1] if "/" in target_url.split("//", 1)[1] else "/"
+    else:
+        base_url = os.getenv("SCRAPER_BASE_URL", "https://www.resultadofacil.com.br")
+        path = os.getenv("SCRAPER_RESULTS_PATH", "/resultados-loteria-tradicional-de-hoje")
+
+    return ScraperConfig(
+        base_url=base_url,
+        results_path=path,
+        headless=_env_bool("SCRAPER_HEADLESS", True),
+        debug=_env_bool("SCRAPER_DEBUG", False),
     )
+
+
+class WebhookDispatcher:
+    def __init__(self, webhook_url: str, api_key: str, timeout_seconds: int = 20) -> None:
+        self._webhook_url = webhook_url
+        self._api_key = api_key
+        self._timeout_seconds = timeout_seconds
+
+    async def post_result(self, draw: LotteryDraw) -> None:
+        headers = {
+            "Authorization": f"Bearer {self._api_key}",
+            "Content-Type": "application/json",
+        }
+        payload = draw.model_dump(mode="json")
+
+        async with httpx.AsyncClient(timeout=self._timeout_seconds) as client:
+            resp = await client.post(self._webhook_url, json=payload, headers=headers)
+            if resp.status_code >= 400:
+                raise RuntimeError(f"Webhook delivery failed: status={resp.status_code} body={resp.text[:500]}")
+
+
+class LotteryScraperService:
+    def __init__(
+        self,
+        scraper: LotonacionalScraper,
+        dispatcher: WebhookDispatcher,
+        retry_interval_seconds: int,
+        retry_max_minutes: int,
+    ) -> None:
+        self._scraper = scraper
+        self._dispatcher = dispatcher
+        self._retry_interval_seconds = retry_interval_seconds
+        self._retry_max_minutes = retry_max_minutes
+
+    async def run_once_with_retry(self) -> None:
+        start = datetime.utcnow()
+        deadline = start.timestamp() + (self._retry_max_minutes * 60)
+
+        attempt = 0
+        while True:
+            attempt += 1
+            try:
+                draws = await self._scraper.run()
+                if not draws:
+                    raise RuntimeError("No draws returned")
+
+                draw = draws[0]
+                await self._dispatcher.post_result(draw)
+                logger.info("Webhook delivered successfully")
+                return
+            except TimeoutError as e:
+                logger.warning("Attempt %s: page readiness timeout: %s", attempt, e)
+            except ValidationError as e:
+                logger.error("Attempt %s: validation error (will not retry): %s", attempt, e)
+                return
+            except Exception as e:
+                logger.warning("Attempt %s failed: %s", attempt, e)
+
+            if datetime.utcnow().timestamp() >= deadline:
+                logger.error("Giving up after %s minutes of retries", self._retry_max_minutes)
+                return
+
+            await asyncio.sleep(self._retry_interval_seconds)
+
+
+def _parse_schedule_times(raw: str) -> list[tuple[int, int]]:
+    times: list[tuple[int, int]] = []
+    for part in [p.strip() for p in raw.split(",") if p.strip()]:
+        hh, mm = part.split(":", 1)
+        times.append((int(hh), int(mm)))
+    return times
+
+
+async def run_service() -> None:
+    _load_env()
+    config = _build_config_from_env()
+    _configure_logging(config.debug)
+
+    webhook_url = os.getenv("WEBHOOK_URL")
+    api_key = os.getenv("WEBHOOK_API_KEY")
+    if not webhook_url or not api_key:
+        raise ValueError("WEBHOOK_URL and WEBHOOK_API_KEY must be set in environment")
+
+    retry_interval = _env_int("SCRAPER_RETRY_INTERVAL_SECONDS", 30)
+    retry_max_minutes = _env_int("SCRAPER_RETRY_MAX_MINUTES", 15)
+    schedule_times_raw = os.getenv("SCRAPER_SCHEDULE_TIMES", "11:30,14:30,19:30")
+
+    dispatcher = WebhookDispatcher(webhook_url=webhook_url, api_key=api_key)
+    scraper = LotonacionalScraper(config)
+    service = LotteryScraperService(
+        scraper=scraper,
+        dispatcher=dispatcher,
+        retry_interval_seconds=retry_interval,
+        retry_max_minutes=retry_max_minutes,
+    )
+
+    scheduler = AsyncIOScheduler(timezone=os.getenv("SCRAPER_TZ", "America/Sao_Paulo"))
+
+    async def scheduled_job() -> None:
+        logger.info("Scheduled run started")
+        await service.run_once_with_retry()
+
+    for hh, mm in _parse_schedule_times(schedule_times_raw):
+        trigger = CronTrigger(hour=hh, minute=mm)
+        scheduler.add_job(lambda: asyncio.create_task(scheduled_job()), trigger=trigger)
+        logger.info("Scheduled job configured for %02d:%02d", hh, mm)
+
+    scheduler.start()
+    logger.info("Service started; scheduler running")
+    await asyncio.Event().wait()
+
+
+async def main() -> None:
+    _load_env()
+    config = _build_config_from_env()
     _configure_logging(config.debug)
 
     scraper = LotonacionalScraper(config)
@@ -335,4 +486,8 @@ async def main() -> None:
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    mode = os.getenv("SCRAPER_MODE", "oneshot").strip().lower()
+    if mode == "service":
+        asyncio.run(run_service())
+    else:
+        asyncio.run(main())
