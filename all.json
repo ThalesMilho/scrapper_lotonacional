@@ -1,0 +1,20 @@
+{
+  "_meta": {
+    "date": "08/03/2026",
+    "scraped_at": "2026-03-08T17:31:31.781383Z",
+    "total_draws_found": 0,
+    "sources_loaded": [],
+    "sources_failed": [
+      "SRC_NACIONAL",
+      "SRC_RJ",
+      "SRC_SP",
+      "SRC_GO",
+      "SRC_BA",
+      "SRC_MG",
+      "SRC_LOTEP",
+      "SRC_FEDERAL"
+    ],
+    "warnings": []
+  },
+  "draws": []
+}
