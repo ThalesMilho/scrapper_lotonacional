@@ -1,6 +1,26 @@
-playwright>=1.40
-playwright-stealth>=1.0.6
-pydantic>=2.0
-apscheduler>=3.10
-httpx>=0.26
-python-dotenv>=1.0
+# ── HTTP & Parsing
+httpx[http2]==0.27.0
+beautifulsoup4==4.12.3
+lxml==5.2.1
+
+# ── Async
+anyio==4.3.0
+
+# ── Data Validation & Models
+pydantic==2.7.1
+
+# ── Resilience
+tenacity==8.3.0
+
+# ── API Server (maiorbichoo.com integration)
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+
+# ── Scheduling
+apscheduler==3.10.4
+
+# ── Configuration
+python-dotenv==1.0.1
+
+# ── Export
+# (csv and json are stdlib — no extra dep needed)

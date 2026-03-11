@@ -1,0 +1,1099 @@
+{
+  "_meta": {
+    "date": "10/03/2026",
+    "scraped_at": "2026-03-11T03:16:17.321544Z",
+    "total_draws_found": 4,
+    "sources_loaded": [
+      "SRC_LOTEP"
+    ],
+    "sources_failed": [
+      "SRC_NACIONAL",
+      "SRC_BOA_SORTE",
+      "SRC_LOOK",
+      "SRC_PT_RIO"
+    ],
+    "warnings": []
+  },
+  "draws": [
+    {
+      "source": "SRC_LOTEP",
+      "lottery": "LT_LOTEP",
+      "variant": "NORMAL",
+      "time": "10:45",
+      "time_raw": "10:45",
+      "date": "10/03/2026",
+      "unexpected_time": false,
+      "incomplete": false,
+      "missing_normal_pair": false,
+      "duplicate": false,
+      "unknown_lottery": false,
+      "passe_pending": false,
+      "results": [
+        {
+          "pos": 1,
+          "number": "3515",
+          "group_id": 4,
+          "animal": "Borboleta",
+          "animal_mismatch": false,
+          "milhar": "3515",
+          "milhar_inv": "5153",
+          "centena": "515",
+          "centena_esq": "351",
+          "centena_inv": "515",
+          "centena_inv_esq": "153",
+          "dezena": "15",
+          "unidade": "5"
+        },
+        {
+          "pos": 2,
+          "number": "6618",
+          "group_id": 5,
+          "animal": "Cachorro",
+          "animal_mismatch": false,
+          "milhar": "6618",
+          "milhar_inv": "8166",
+          "centena": "618",
+          "centena_esq": "661",
+          "centena_inv": "816",
+          "centena_inv_esq": "166",
+          "dezena": "18",
+          "unidade": "8"
+        },
+        {
+          "pos": 3,
+          "number": "3917",
+          "group_id": 5,
+          "animal": "Cachorro",
+          "animal_mismatch": false,
+          "milhar": "3917",
+          "milhar_inv": "7193",
+          "centena": "917",
+          "centena_esq": "391",
+          "centena_inv": "719",
+          "centena_inv_esq": "193",
+          "dezena": "17",
+          "unidade": "7"
+        },
+        {
+          "pos": 4,
+          "number": "0201",
+          "group_id": 1,
+          "animal": "Avestruz",
+          "animal_mismatch": false,
+          "milhar": "0201",
+          "milhar_inv": "1020",
+          "centena": "201",
+          "centena_esq": "020",
+          "centena_inv": "102",
+          "centena_inv_esq": "020",
+          "dezena": "01",
+          "unidade": "1"
+        },
+        {
+          "pos": 5,
+          "number": "0638",
+          "group_id": 10,
+          "animal": "Coelho",
+          "animal_mismatch": false,
+          "milhar": "0638",
+          "milhar_inv": "8360",
+          "centena": "638",
+          "centena_esq": "063",
+          "centena_inv": "836",
+          "centena_inv_esq": "360",
+          "dezena": "38",
+          "unidade": "8"
+        },
+        {
+          "pos": 6,
+          "number": "3630",
+          "group_id": 8,
+          "animal": "Camelo",
+          "animal_mismatch": false,
+          "milhar": "3630",
+          "milhar_inv": "0363",
+          "centena": "630",
+          "centena_esq": "363",
+          "centena_inv": "036",
+          "centena_inv_esq": "363",
+          "dezena": "30",
+          "unidade": "0"
+        },
+        {
+          "pos": 7,
+          "number": "5692",
+          "group_id": 23,
+          "animal": "Urso",
+          "animal_mismatch": false,
+          "milhar": "5692",
+          "milhar_inv": "2965",
+          "centena": "692",
+          "centena_esq": "569",
+          "centena_inv": "296",
+          "centena_inv_esq": "965",
+          "dezena": "92",
+          "unidade": "2"
+        },
+        {
+          "pos": 8,
+          "number": "1110",
+          "group_id": 3,
+          "animal": "Burro",
+          "animal_mismatch": false,
+          "milhar": "1110",
+          "milhar_inv": "0111",
+          "centena": "110",
+          "centena_esq": "111",
+          "centena_inv": "011",
+          "centena_inv_esq": "111",
+          "dezena": "10",
+          "unidade": "0"
+        },
+        {
+          "pos": 9,
+          "number": "5871",
+          "group_id": 18,
+          "animal": "Porco",
+          "animal_mismatch": false,
+          "milhar": "5871",
+          "milhar_inv": "1785",
+          "centena": "871",
+          "centena_esq": "587",
+          "centena_inv": "178",
+          "centena_inv_esq": "785",
+          "dezena": "71",
+          "unidade": "1"
+        },
+        {
+          "pos": 10,
+          "number": "1192",
+          "group_id": 23,
+          "animal": "Urso",
+          "animal_mismatch": false,
+          "milhar": "1192",
+          "milhar_inv": "2911",
+          "centena": "192",
+          "centena_esq": "119",
+          "centena_inv": "291",
+          "centena_inv_esq": "911",
+          "dezena": "92",
+          "unidade": "2"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "515",
+        "CENTENA_INV": "515",
+        "CENTENA_INV_ESQ": "153",
+        "CENTENA_ESQ": "351",
+        "MILHAR": "3515",
+        "MILHAR_CT": [
+          "3515",
+          "515"
+        ],
+        "MILHAR_INV": "5153",
+        "UNIDADE": "5",
+        "DEZENA": "15",
+        "DUQUE_DEZ": [
+          "15",
+          "18"
+        ],
+        "TERNO_DEZ": [
+          "15",
+          "18",
+          "17"
+        ],
+        "SECO_TERNO_DEZ": [
+          "15",
+          "18",
+          "17"
+        ],
+        "GRUPO": {
+          "group_id": 4,
+          "animal": "Borboleta"
+        },
+        "DUQUE_GP": [
+          4,
+          5
+        ],
+        "TERNO_GP": [
+          4,
+          5,
+          5
+        ],
+        "QUADRA_GP": [
+          4,
+          5,
+          5,
+          1
+        ],
+        "QUINA_GP": [
+          4,
+          5,
+          5,
+          1,
+          10
+        ],
+        "QUINA_GP_ESQ": [
+          "351",
+          "661",
+          "391",
+          "020",
+          "063"
+        ],
+        "QUINA_GP_MEIO": [
+          "515",
+          "618",
+          "917",
+          "201",
+          "638"
+        ],
+        "SENA_GP": [
+          4,
+          5,
+          5,
+          1,
+          10,
+          8
+        ],
+        "SENA_GP_ESQ": [
+          "351",
+          "661",
+          "391",
+          "020",
+          "063",
+          "363"
+        ],
+        "SENA_GP_MEIO": [
+          "515",
+          "618",
+          "917",
+          "201",
+          "638",
+          "630"
+        ],
+        "PASSE_VAI": 12,
+        "PASSE_VAI_VEM": false,
+        "PALPITAO": {
+          "milhar": "3515",
+          "centena": "515",
+          "dezena": "15",
+          "grupo": 4,
+          "duque_gp": [
+            4,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "source": "SRC_LOTEP",
+      "lottery": "LT_LOTEP",
+      "variant": "NORMAL",
+      "time": "12:45",
+      "time_raw": "12:45",
+      "date": "10/03/2026",
+      "unexpected_time": false,
+      "incomplete": false,
+      "missing_normal_pair": false,
+      "duplicate": false,
+      "unknown_lottery": false,
+      "passe_pending": false,
+      "results": [
+        {
+          "pos": 1,
+          "number": "2245",
+          "group_id": 12,
+          "animal": "Elefante",
+          "animal_mismatch": false,
+          "milhar": "2245",
+          "milhar_inv": "5422",
+          "centena": "245",
+          "centena_esq": "224",
+          "centena_inv": "542",
+          "centena_inv_esq": "422",
+          "dezena": "45",
+          "unidade": "5"
+        },
+        {
+          "pos": 2,
+          "number": "3165",
+          "group_id": 17,
+          "animal": "Macaco",
+          "animal_mismatch": false,
+          "milhar": "3165",
+          "milhar_inv": "5613",
+          "centena": "165",
+          "centena_esq": "316",
+          "centena_inv": "561",
+          "centena_inv_esq": "613",
+          "dezena": "65",
+          "unidade": "5"
+        },
+        {
+          "pos": 3,
+          "number": "5095",
+          "group_id": 24,
+          "animal": "Veado",
+          "animal_mismatch": false,
+          "milhar": "5095",
+          "milhar_inv": "5905",
+          "centena": "095",
+          "centena_esq": "509",
+          "centena_inv": "590",
+          "centena_inv_esq": "905",
+          "dezena": "95",
+          "unidade": "5"
+        },
+        {
+          "pos": 4,
+          "number": "6266",
+          "group_id": 17,
+          "animal": "Macaco",
+          "animal_mismatch": false,
+          "milhar": "6266",
+          "milhar_inv": "6626",
+          "centena": "266",
+          "centena_esq": "626",
+          "centena_inv": "662",
+          "centena_inv_esq": "626",
+          "dezena": "66",
+          "unidade": "6"
+        },
+        {
+          "pos": 5,
+          "number": "0937",
+          "group_id": 10,
+          "animal": "Coelho",
+          "animal_mismatch": false,
+          "milhar": "0937",
+          "milhar_inv": "7390",
+          "centena": "937",
+          "centena_esq": "093",
+          "centena_inv": "739",
+          "centena_inv_esq": "390",
+          "dezena": "37",
+          "unidade": "7"
+        },
+        {
+          "pos": 6,
+          "number": "2356",
+          "group_id": 14,
+          "animal": "Gato",
+          "animal_mismatch": false,
+          "milhar": "2356",
+          "milhar_inv": "6532",
+          "centena": "356",
+          "centena_esq": "235",
+          "centena_inv": "653",
+          "centena_inv_esq": "532",
+          "dezena": "56",
+          "unidade": "6"
+        },
+        {
+          "pos": 7,
+          "number": "2102",
+          "group_id": 1,
+          "animal": "Avestruz",
+          "animal_mismatch": false,
+          "milhar": "2102",
+          "milhar_inv": "2012",
+          "centena": "102",
+          "centena_esq": "210",
+          "centena_inv": "201",
+          "centena_inv_esq": "012",
+          "dezena": "02",
+          "unidade": "2"
+        },
+        {
+          "pos": 8,
+          "number": "4696",
+          "group_id": 24,
+          "animal": "Veado",
+          "animal_mismatch": false,
+          "milhar": "4696",
+          "milhar_inv": "6964",
+          "centena": "696",
+          "centena_esq": "469",
+          "centena_inv": "696",
+          "centena_inv_esq": "964",
+          "dezena": "96",
+          "unidade": "6"
+        },
+        {
+          "pos": 9,
+          "number": "5556",
+          "group_id": 14,
+          "animal": "Gato",
+          "animal_mismatch": false,
+          "milhar": "5556",
+          "milhar_inv": "6555",
+          "centena": "556",
+          "centena_esq": "555",
+          "centena_inv": "655",
+          "centena_inv_esq": "555",
+          "dezena": "56",
+          "unidade": "6"
+        },
+        {
+          "pos": 10,
+          "number": "2418",
+          "group_id": 5,
+          "animal": "Cachorro",
+          "animal_mismatch": false,
+          "milhar": "2418",
+          "milhar_inv": "8142",
+          "centena": "418",
+          "centena_esq": "241",
+          "centena_inv": "814",
+          "centena_inv_esq": "142",
+          "dezena": "18",
+          "unidade": "8"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "245",
+        "CENTENA_INV": "542",
+        "CENTENA_INV_ESQ": "422",
+        "CENTENA_ESQ": "224",
+        "MILHAR": "2245",
+        "MILHAR_CT": [
+          "2245",
+          "245"
+        ],
+        "MILHAR_INV": "5422",
+        "UNIDADE": "5",
+        "DEZENA": "45",
+        "DUQUE_DEZ": [
+          "45",
+          "65"
+        ],
+        "TERNO_DEZ": [
+          "45",
+          "65",
+          "95"
+        ],
+        "SECO_TERNO_DEZ": [
+          "45",
+          "65",
+          "95"
+        ],
+        "GRUPO": {
+          "group_id": 12,
+          "animal": "Elefante"
+        },
+        "DUQUE_GP": [
+          12,
+          17
+        ],
+        "TERNO_GP": [
+          12,
+          17,
+          24
+        ],
+        "QUADRA_GP": [
+          12,
+          17,
+          24,
+          17
+        ],
+        "QUINA_GP": [
+          12,
+          17,
+          24,
+          17,
+          10
+        ],
+        "QUINA_GP_ESQ": [
+          "224",
+          "316",
+          "509",
+          "626",
+          "093"
+        ],
+        "QUINA_GP_MEIO": [
+          "245",
+          "165",
+          "095",
+          "266",
+          "937"
+        ],
+        "SENA_GP": [
+          12,
+          17,
+          24,
+          17,
+          10,
+          14
+        ],
+        "SENA_GP_ESQ": [
+          "224",
+          "316",
+          "509",
+          "626",
+          "093",
+          "235"
+        ],
+        "SENA_GP_MEIO": [
+          "245",
+          "165",
+          "095",
+          "266",
+          "937",
+          "356"
+        ],
+        "PASSE_VAI": 13,
+        "PASSE_VAI_VEM": false,
+        "PALPITAO": {
+          "milhar": "2245",
+          "centena": "245",
+          "dezena": "45",
+          "grupo": 12,
+          "duque_gp": [
+            12,
+            17
+          ]
+        }
+      }
+    },
+    {
+      "source": "SRC_LOTEP",
+      "lottery": "LT_LOTEP",
+      "variant": "NORMAL",
+      "time": "15:45",
+      "time_raw": "15:45",
+      "date": "10/03/2026",
+      "unexpected_time": false,
+      "incomplete": false,
+      "missing_normal_pair": false,
+      "duplicate": false,
+      "unknown_lottery": false,
+      "passe_pending": false,
+      "results": [
+        {
+          "pos": 1,
+          "number": "3250",
+          "group_id": 13,
+          "animal": "Galo",
+          "animal_mismatch": false,
+          "milhar": "3250",
+          "milhar_inv": "0523",
+          "centena": "250",
+          "centena_esq": "325",
+          "centena_inv": "052",
+          "centena_inv_esq": "523",
+          "dezena": "50",
+          "unidade": "0"
+        },
+        {
+          "pos": 2,
+          "number": "8399",
+          "group_id": 25,
+          "animal": "Vaca",
+          "animal_mismatch": false,
+          "milhar": "8399",
+          "milhar_inv": "9938",
+          "centena": "399",
+          "centena_esq": "839",
+          "centena_inv": "993",
+          "centena_inv_esq": "938",
+          "dezena": "99",
+          "unidade": "9"
+        },
+        {
+          "pos": 3,
+          "number": "7797",
+          "group_id": 25,
+          "animal": "Vaca",
+          "animal_mismatch": false,
+          "milhar": "7797",
+          "milhar_inv": "7977",
+          "centena": "797",
+          "centena_esq": "779",
+          "centena_inv": "797",
+          "centena_inv_esq": "977",
+          "dezena": "97",
+          "unidade": "7"
+        },
+        {
+          "pos": 4,
+          "number": "0494",
+          "group_id": 24,
+          "animal": "Veado",
+          "animal_mismatch": false,
+          "milhar": "0494",
+          "milhar_inv": "4940",
+          "centena": "494",
+          "centena_esq": "049",
+          "centena_inv": "494",
+          "centena_inv_esq": "940",
+          "dezena": "94",
+          "unidade": "4"
+        },
+        {
+          "pos": 5,
+          "number": "0162",
+          "group_id": 16,
+          "animal": "Leão",
+          "animal_mismatch": false,
+          "milhar": "0162",
+          "milhar_inv": "2610",
+          "centena": "162",
+          "centena_esq": "016",
+          "centena_inv": "261",
+          "centena_inv_esq": "610",
+          "dezena": "62",
+          "unidade": "2"
+        },
+        {
+          "pos": 6,
+          "number": "3870",
+          "group_id": 18,
+          "animal": "Porco",
+          "animal_mismatch": false,
+          "milhar": "3870",
+          "milhar_inv": "0783",
+          "centena": "870",
+          "centena_esq": "387",
+          "centena_inv": "078",
+          "centena_inv_esq": "783",
+          "dezena": "70",
+          "unidade": "0"
+        },
+        {
+          "pos": 7,
+          "number": "2374",
+          "group_id": 19,
+          "animal": "Pavão",
+          "animal_mismatch": false,
+          "milhar": "2374",
+          "milhar_inv": "4732",
+          "centena": "374",
+          "centena_esq": "237",
+          "centena_inv": "473",
+          "centena_inv_esq": "732",
+          "dezena": "74",
+          "unidade": "4"
+        },
+        {
+          "pos": 8,
+          "number": "5999",
+          "group_id": 25,
+          "animal": "Vaca",
+          "animal_mismatch": false,
+          "milhar": "5999",
+          "milhar_inv": "9995",
+          "centena": "999",
+          "centena_esq": "599",
+          "centena_inv": "999",
+          "centena_inv_esq": "995",
+          "dezena": "99",
+          "unidade": "9"
+        },
+        {
+          "pos": 9,
+          "number": "0974",
+          "group_id": 19,
+          "animal": "Pavão",
+          "animal_mismatch": false,
+          "milhar": "0974",
+          "milhar_inv": "4790",
+          "centena": "974",
+          "centena_esq": "097",
+          "centena_inv": "479",
+          "centena_inv_esq": "790",
+          "dezena": "74",
+          "unidade": "4"
+        },
+        {
+          "pos": 10,
+          "number": "3319",
+          "group_id": 5,
+          "animal": "Cachorro",
+          "animal_mismatch": false,
+          "milhar": "3319",
+          "milhar_inv": "9133",
+          "centena": "319",
+          "centena_esq": "331",
+          "centena_inv": "913",
+          "centena_inv_esq": "133",
+          "dezena": "19",
+          "unidade": "9"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "250",
+        "CENTENA_INV": "052",
+        "CENTENA_INV_ESQ": "523",
+        "CENTENA_ESQ": "325",
+        "MILHAR": "3250",
+        "MILHAR_CT": [
+          "3250",
+          "250"
+        ],
+        "MILHAR_INV": "0523",
+        "UNIDADE": "0",
+        "DEZENA": "50",
+        "DUQUE_DEZ": [
+          "50",
+          "99"
+        ],
+        "TERNO_DEZ": [
+          "50",
+          "99",
+          "97"
+        ],
+        "SECO_TERNO_DEZ": [
+          "50",
+          "99",
+          "97"
+        ],
+        "GRUPO": {
+          "group_id": 13,
+          "animal": "Galo"
+        },
+        "DUQUE_GP": [
+          13,
+          25
+        ],
+        "TERNO_GP": [
+          13,
+          25,
+          25
+        ],
+        "QUADRA_GP": [
+          13,
+          25,
+          25,
+          24
+        ],
+        "QUINA_GP": [
+          13,
+          25,
+          25,
+          24,
+          16
+        ],
+        "QUINA_GP_ESQ": [
+          "325",
+          "839",
+          "779",
+          "049",
+          "016"
+        ],
+        "QUINA_GP_MEIO": [
+          "250",
+          "399",
+          "797",
+          "494",
+          "162"
+        ],
+        "SENA_GP": [
+          13,
+          25,
+          25,
+          24,
+          16,
+          18
+        ],
+        "SENA_GP_ESQ": [
+          "325",
+          "839",
+          "779",
+          "049",
+          "016",
+          "387"
+        ],
+        "SENA_GP_MEIO": [
+          "250",
+          "399",
+          "797",
+          "494",
+          "162",
+          "870"
+        ],
+        "PASSE_VAI": 21,
+        "PASSE_VAI_VEM": false,
+        "PALPITAO": {
+          "milhar": "3250",
+          "centena": "250",
+          "dezena": "50",
+          "grupo": 13,
+          "duque_gp": [
+            13,
+            25
+          ]
+        }
+      }
+    },
+    {
+      "source": "SRC_LOTEP",
+      "lottery": "LT_LOTEP",
+      "variant": "NORMAL",
+      "time": "18:00",
+      "time_raw": "18h",
+      "date": "10/03/2026",
+      "unexpected_time": false,
+      "incomplete": false,
+      "missing_normal_pair": false,
+      "duplicate": false,
+      "unknown_lottery": false,
+      "passe_pending": true,
+      "results": [
+        {
+          "pos": 1,
+          "number": "8782",
+          "group_id": 21,
+          "animal": "Touro",
+          "animal_mismatch": false,
+          "milhar": "8782",
+          "milhar_inv": "2878",
+          "centena": "782",
+          "centena_esq": "878",
+          "centena_inv": "287",
+          "centena_inv_esq": "878",
+          "dezena": "82",
+          "unidade": "2"
+        },
+        {
+          "pos": 2,
+          "number": "4787",
+          "group_id": 22,
+          "animal": "Tigre",
+          "animal_mismatch": false,
+          "milhar": "4787",
+          "milhar_inv": "7874",
+          "centena": "787",
+          "centena_esq": "478",
+          "centena_inv": "787",
+          "centena_inv_esq": "874",
+          "dezena": "87",
+          "unidade": "7"
+        },
+        {
+          "pos": 3,
+          "number": "5491",
+          "group_id": 23,
+          "animal": "Urso",
+          "animal_mismatch": false,
+          "milhar": "5491",
+          "milhar_inv": "1945",
+          "centena": "491",
+          "centena_esq": "549",
+          "centena_inv": "194",
+          "centena_inv_esq": "945",
+          "dezena": "91",
+          "unidade": "1"
+        },
+        {
+          "pos": 4,
+          "number": "0389",
+          "group_id": 23,
+          "animal": "Urso",
+          "animal_mismatch": false,
+          "milhar": "0389",
+          "milhar_inv": "9830",
+          "centena": "389",
+          "centena_esq": "038",
+          "centena_inv": "983",
+          "centena_inv_esq": "830",
+          "dezena": "89",
+          "unidade": "9"
+        },
+        {
+          "pos": 5,
+          "number": "6772",
+          "group_id": 18,
+          "animal": "Porco",
+          "animal_mismatch": false,
+          "milhar": "6772",
+          "milhar_inv": "2776",
+          "centena": "772",
+          "centena_esq": "677",
+          "centena_inv": "277",
+          "centena_inv_esq": "776",
+          "dezena": "72",
+          "unidade": "2"
+        },
+        {
+          "pos": 6,
+          "number": "8450",
+          "group_id": 13,
+          "animal": "Galo",
+          "animal_mismatch": false,
+          "milhar": "8450",
+          "milhar_inv": "0548",
+          "centena": "450",
+          "centena_esq": "845",
+          "centena_inv": "054",
+          "centena_inv_esq": "548",
+          "dezena": "50",
+          "unidade": "0"
+        },
+        {
+          "pos": 7,
+          "number": "7743",
+          "group_id": 11,
+          "animal": "Cavalo",
+          "animal_mismatch": false,
+          "milhar": "7743",
+          "milhar_inv": "3477",
+          "centena": "743",
+          "centena_esq": "774",
+          "centena_inv": "347",
+          "centena_inv_esq": "477",
+          "dezena": "43",
+          "unidade": "3"
+        },
+        {
+          "pos": 8,
+          "number": "8898",
+          "group_id": 25,
+          "animal": "Vaca",
+          "animal_mismatch": false,
+          "milhar": "8898",
+          "milhar_inv": "8988",
+          "centena": "898",
+          "centena_esq": "889",
+          "centena_inv": "898",
+          "centena_inv_esq": "988",
+          "dezena": "98",
+          "unidade": "8"
+        },
+        {
+          "pos": 9,
+          "number": "2719",
+          "group_id": 5,
+          "animal": "Cachorro",
+          "animal_mismatch": false,
+          "milhar": "2719",
+          "milhar_inv": "9172",
+          "centena": "719",
+          "centena_esq": "271",
+          "centena_inv": "917",
+          "centena_inv_esq": "172",
+          "dezena": "19",
+          "unidade": "9"
+        },
+        {
+          "pos": 10,
+          "number": "4031",
+          "group_id": 8,
+          "animal": "Camelo",
+          "animal_mismatch": false,
+          "milhar": "4031",
+          "milhar_inv": "1304",
+          "centena": "031",
+          "centena_esq": "403",
+          "centena_inv": "130",
+          "centena_inv_esq": "304",
+          "dezena": "31",
+          "unidade": "1"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "782",
+        "CENTENA_INV": "287",
+        "CENTENA_INV_ESQ": "878",
+        "CENTENA_ESQ": "878",
+        "MILHAR": "8782",
+        "MILHAR_CT": [
+          "8782",
+          "782"
+        ],
+        "MILHAR_INV": "2878",
+        "UNIDADE": "2",
+        "DEZENA": "82",
+        "DUQUE_DEZ": [
+          "82",
+          "87"
+        ],
+        "TERNO_DEZ": [
+          "82",
+          "87",
+          "91"
+        ],
+        "SECO_TERNO_DEZ": [
+          "82",
+          "87",
+          "91"
+        ],
+        "GRUPO": {
+          "group_id": 21,
+          "animal": "Touro"
+        },
+        "DUQUE_GP": [
+          21,
+          22
+        ],
+        "TERNO_GP": [
+          21,
+          22,
+          23
+        ],
+        "QUADRA_GP": [
+          21,
+          22,
+          23,
+          23
+        ],
+        "QUINA_GP": [
+          21,
+          22,
+          23,
+          23,
+          18
+        ],
+        "QUINA_GP_ESQ": [
+          "878",
+          "478",
+          "549",
+          "038",
+          "677"
+        ],
+        "QUINA_GP_MEIO": [
+          "782",
+          "787",
+          "491",
+          "389",
+          "772"
+        ],
+        "SENA_GP": [
+          21,
+          22,
+          23,
+          23,
+          18,
+          13
+        ],
+        "SENA_GP_ESQ": [
+          "878",
+          "478",
+          "549",
+          "038",
+          "677",
+          "845"
+        ],
+        "SENA_GP_MEIO": [
+          "782",
+          "787",
+          "491",
+          "389",
+          "772",
+          "450"
+        ],
+        "PASSE_VAI": null,
+        "PASSE_VAI_VEM": null,
+        "PALPITAO": {
+          "milhar": "8782",
+          "centena": "782",
+          "dezena": "82",
+          "grupo": 21,
+          "duque_gp": [
+            21,
+            22
+          ]
+        }
+      }
+    }
+  ]
+}

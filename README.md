@@ -1,211 +1,188 @@
-# Lottery Scraper Microservice
+# Lottery Scraper Microservice v2
 
-**What it does:**  
-This Python script visits a lottery results website, extracts the 5 winning numbers, and sends them to your Laravel backend via a secure webhook. It can run once (for testing) or run as a background service that retries automatically if the results are delayed.
-
----
-
-## 1️⃣ High‑level flow (easy to picture)
-
-```
-Scheduler (11:30, 14:30, 19:30) → Scrape → Validate → POST (Bearer token) → Laravel
-```
-
-- **Scheduler:** Starts at the times you set.
-- **Scrape:** Opens a browser (Playwright), waits for the results table, reads the 5 numbers.
-- **Validate:** Checks that we really got 5 numbers and they are in the expected range.
-- **POST:** Sends a JSON payload to your Laravel API using a secret Bearer token.
-- **Retry:** If the results aren’t ready yet, it tries again every 30 s for up to 15 min.
+Production-grade, multi-source lottery results scraper with FastAPI integration endpoints for **maiorbichoo.com**.
 
 ---
 
-## 2️⃣ How to run it
+## Architecture
 
-### Install dependencies
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                        SCRAPER MICROSERVICE                         │
+│                                                                     │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────┐  ┌──────────┐   │
+│  │   Nacional   │  │  Boa Sorte   │  │   Look   │  │ Bicho RJ │   │
+│  │  Scraper     │  │  Scraper     │  │  Scraper │  │  Scraper │   │
+│  └──────┬───────┘  └──────┬───────┘  └────┬─────┘  └────┬─────┘   │
+│         └─────────────────┴───────────────┴─────────────┘         │
+│                             │  (DrawSession[])                      │
+│                    ┌────────▼────────┐                              │
+│                    │  Pydantic        │  ← Schema validation        │
+│                    │  models/schemas  │     (rejects bad data)      │
+│                    └────────┬────────┘                              │
+│              ┌──────────────┼───────────────┐                       │
+│              ▼              ▼               ▼                       │
+│      ┌───────────┐  ┌──────────────┐  ┌──────────────┐             │
+│      │  JSON     │  │   CSV file   │  │  Webhook     │             │
+│      │  storage  │  │  (flat rows) │  │  Dispatcher  │             │
+│      └───────────┘  └──────────────┘  └──────┬───────┘             │
+│                                               │ POST Bearer         │
+└───────────────────────────────────────────────┼─────────────────────┘
+                                                ▼
+                                     maiorbichoo.com/api/webhooks/...
+
+                FastAPI (inbound) ←── GET /api/v1/results/{source}
+```
+
+---
+
+## Sources
+
+| Source ID           | URL                                                                  | State |
+|---------------------|----------------------------------------------------------------------|-------|
+| `loteria_nacional`  | https://www.lotonacional.com.br/                                     | —     |
+| `boa_sorte`         | https://www.resultadofacil.com.br/resultados-boa-sorte-de-hoje       | GO    |
+| `look_loterias`     | https://www.resultadofacil.com.br/resultados-look-loterias-de-hoje   | GO    |
+| `bicho_rj`          | https://www.resultadofacil.com.br/resultado-do-jogo-do-bicho/rj      | RJ    |
+
+---
+
+## Quick Start
+
+### 1. Install
 
 ```bash
-python -m pip install -r requirements.txt
-playwright install chromium
+pip install -r requirements.txt
 ```
 
-### Create a `.env` file
-
-Copy `.env.example` to `.env` and edit:
-
-```env
-# Where to scrape
-SCRAPER_TARGET_URL=https://www.resultadofacil.com.br/resultados-loteria-tradicional-de-hoje
-
-# When to run (comma‑separated HH:MM)
-SCRAPER_SCHEDULE_TIMES=11:30,14:30,19:30
-
-# Retry behavior
-SCRAPER_RETRY_INTERVAL_SECONDS=30
-SCRAPER_RETRY_MAX_MINUTES=15
-
-# Laravel webhook
-WEBHOOK_URL=http://localhost:8000/api/webhooks/lottery-results
-WEBHOOK_API_KEY=change-me
-
-# Runtime
-SCRAPER_HEADLESS=true
-SCRAPER_DEBUG=false
-LOG_LEVEL=INFO
-```
-
-### One‑shot (test)
+### 2. Configure
 
 ```bash
-set SCRAPER_MODE=oneshot
-python phase2_stealth_scraper.py
+cp .env.example .env
+# Edit .env — set WEBHOOK_URL, WEBHOOK_API_KEY, API_SECRET_KEY
 ```
 
-You’ll see the JSON printed on the console.
-
-### Service mode (production)
+### 3. Run
 
 ```bash
-set SCRAPER_MODE=service
-python phase2_stealth_scraper.py
+# Scrape all sources once
+python main.py oneshot
+
+# Start scheduled service daemon
+python main.py service
+
+# Start API server only (for maiorbichoo.com to query)
+python main.py api
+
+# Scrape once then start API server
+python main.py all
 ```
 
-It will stay running, wake up at the scheduled times, and log everything.
+### 4. Test
 
----
-
-## 3️⃣ Derived numbers rule (the “9999 complement”)
-
-**Why we do it:**  
-Some lottery strategies ask for the “complement” of each winning number.  
-For a 4‑digit milhar, the complement is `9999 - original`.  
-We always keep 4 digits by zero‑padding.
-
-**Example:**  
-Original numbers scraped from the site: `[8069, 1527, 8398, 2121, 6570]`  
-Derived numbers:
-```
-9999 - 8069 = 1930
-9999 - 1527 = 8472
-9999 - 8398 = 1601
-9999 - 2121 = 7878
-9999 - 6570 = 3429
-```
-Result: `["1930", "8472", "1601", "7878", "3429"]`
-
-**In the code:**  
-```python
-def _derive_complements(self, numbers: list[int]) -> list[str]:
-    # Derivation rule: complement of 9999 (derived = 9999 - original), zero-padded to 4 digits.
-    return [f"{(9999 - n):04d}" for n in numbers]
-```
-The derived list is stored in `derived_numbers` and sent together with the originals in the webhook payload.
-
----
-
-## 4️⃣ What the code actually does (step by step)
-
-### a) Configuration (`.env` → Python objects)
-
-- `ScraperConfig` holds URLs, timeouts, headless mode.
-- `WebhookDispatcher` holds the Laravel URL and the secret Bearer token.
-- All values come from environment variables, so you can change them without touching the code.
-
-### b) Scraper (`LotonacionalScraper`)
-
-- Launches a Chromium browser.
-- Navigates to the target URL.
-- Waits until the results table is visible.
-- Reads the 5 “Milhar” numbers from the table.
-- **Generates 5 derived numbers** using the rule: **`derived = 9999 - original`**  
-  - Example: `9999 - 8069 = 1930`
-  - Each result is zero‑padded to 4 digits (e.g., `"0756"` not `"756"`).
-- Returns a `LotteryDraw` object (Pydantic model) that contains:
-  - `source_url`
-  - `extracted_at_utc`
-  - `draw_id` / `draw_date` (text from the page)
-  - `numbers` (original 5 ints)
-  - `derived_numbers` (5 strings like `"0756"`)
-
-### c) Retry wrapper (`LotteryScraperService.run_once_with_retry`)
-
-- Calls the scraper.
-- If the page isn’t ready (`TimeoutError`) → wait 30 s and try again.
-- If the data is invalid (`ValidationError`) → stop (won’t fix by retrying).
-- If Laravel returns 4xx/5xx → log and stop.
-- Stops after 15 min of retries.
-
-### d) Scheduler (`run_service`)
-
-- Uses `APScheduler` with `CronTrigger`.
-- For each time in `SCRAPER_SCHEDULE_TIMES`, it registers a job.
-- Jobs run asynchronously (`asyncio.create_task`) so the service stays responsive.
-- The service runs forever (`await asyncio.Event().wait()`).
-
-### e) Webhook (`WebhookDispatcher.post_result`)
-
-- Builds JSON payload from the `LotteryDraw` model.
-- Sends `POST` with:
-  - `Authorization: Bearer <API_KEY>`
-  - `Content-Type: application/json`
-- Checks response status; raises if it’s 4xx/5xx.
-
----
-
-## 4️⃣ Logs you’ll see
-
-```
-2026-02-26 11:30:00 | INFO     | lotonacional.phase2 | Scheduled run started
-2026-02-26 11:30:02 | INFO     | lotonacional.phase2 | Using User-Agent: Mozilla/5.0...
-2026-02-26 11:30:05 | INFO     | lotonacional.phase2 | Extracted ResultadoFacil Loteria Tradicional numbers=3950,4113,4996,2820,3215
-2026-02-26 11:30:06 | INFO     | lotonacional.phase2 | Webhook delivered successfully
+```bash
+pip install pytest
+pytest tests/ -v
 ```
 
-If something goes wrong, you’ll see warnings/errors and the retry attempts.
+---
+
+## API Endpoints
+
+All endpoints (except `/health`) require:
+```
+Authorization: Bearer <API_SECRET_KEY>
+```
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/health` | Liveness probe (no auth) |
+| GET | `/api/v1/results/latest` | Latest result per source |
+| GET | `/api/v1/results/{source_id}` | Latest for one source |
+| GET | `/api/v1/results/{source_id}/today` | All draws today |
+| GET | `/api/v1/results/all/today` | All draws today, all sources |
+| POST | `/api/v1/webhook/receive` | Receive external push |
+
+**Valid `source_id` values:** `loteria_nacional`, `boa_sorte`, `look_loterias`, `bicho_rj`
+
+Interactive docs: `http://localhost:8080/docs`
 
 ---
 
-## 5️⃣ Why it’s built this way
+## Data Schema
 
-| Concern | How we solved it |
-|---------|------------------|
-| **Reliability** | Scheduler + retry loop (30 s × 15 min) |
-| **Security** | Bearer token from `.env`; never hard‑coded |
-| **Observability** | Structured logs; you can pipe to a file (`LOG_FILE=scraper_service.log`) |
-| **Maintainability** | Core scraper unchanged; wrapped in service classes |
-| **Flexibility** | All URLs, times, and behavior are env‑driven |
+Each draw session contains:
 
----
+```json
+{
+  "source_id": "boa_sorte",
+  "draw_date": "08/03/2026",
+  "draw_time": "14:00",
+  "state": "GO",
+  "banca": null,
+  "entries": [
+    {
+      "premio": 1,
+      "milhar": "8086",
+      "centena": "086",
+      "dezena": "86",
+      "complemento": "1913",
+      "grupo": 22,
+      "bicho": "Tigre"
+    }
+  ],
+  "super5": null,
+  "scraped_at_utc": "2026-03-08T17:30:00Z"
+}
+```
 
-## 6️⃣ What you need to tell your team
-
-- “We have a **microservice** that runs on a schedule, scrapes the lottery site, and pushes the results to our Laravel API.”
-- “It retries automatically if the results are delayed, so we don’t miss a draw.”
-- “All secrets and URLs are in `.env`; we can change the target site or schedule without code changes.”
-- “The webhook uses a Bearer token, so only our Laravel backend can accept the payload.”
-- “If Laravel is down, the scraper logs the error and keeps the scheduler running for the next run.”
-
----
-
-## 7️⃣ Next steps (Phase 2)
-
-Your Laravel side will need:
-- `POST /api/webhooks/lottery-results`
-- Middleware to verify the Bearer token
-- FormRequest validation
-- A Job (`ProcessLotteryResultJob`) that will run the settlement logic later
-
----
-
-## 8️⃣ Quick checklist for today’s demo
-
-- [ ] Show the `.env.example` and explain the variables.
-- [ ] Run `SCRAPER_MODE=oneshot` and show the JSON output.
-- [ ] Explain the **derived numbers rule** (`9999 - original`) and show how they appear in the JSON.
-- [ ] Switch to `SCRAPER_MODE=service` and show the scheduler log.
-- [ ] Explain the retry loop (you can trigger a failure by changing the URL to a bogus page).
-- [ ] Mention the webhook payload format (draw_id, date, numbers, derived_numbers).
+**Complemento rule:** `9999 - milhar`, zero-padded to 4 digits.  
+Example: milhar `8086` → complemento `1913` (9999 - 8086 = 1913)
 
 ---
 
-**That’s it!**  
-You now have a clean, scheduled, secure scraper that talks to Laravel. 🚀
+## Webhook Payload (outbound → maiorbichoo.com)
+
+```json
+{
+  "source": "look_loterias",
+  "draw_date": "18/02/2026",
+  "draw_time": "14:00",
+  "banca": null,
+  "state": "GO",
+  "numbers": ["3810", "1444", "5953", "4229", "9289"],
+  "complementos": ["6189", "8555", "4046", "5770", "0710"],
+  "super5": [2, 3, 9, 13, 22],
+  "scraped_at_utc": "2026-02-18T17:30:00Z"
+}
+```
+
+---
+
+## Project Structure
+
+```
+lottery_scraper/
+├── main.py                          # Entry point (oneshot/service/api/all)
+├── requirements.txt
+├── .env.example
+├── config/
+│   ├── settings.py                  # Pydantic settings (env-driven)
+│   └── logging_setup.py             # Structured logging
+├── models/
+│   └── schemas.py                   # DrawEntry, DrawSession, ScrapedResult, WebhookPayload
+├── scrapers/
+│   ├── http_client.py               # Async httpx + stealth headers + retry
+│   ├── base_scraper.py              # Abstract base class
+│   ├── nacional_scraper.py          # lotonacional.com.br
+│   └── resultado_facil_scraper.py   # Boa Sorte + Look + Bicho RJ
+├── storage/
+│   ├── storage_manager.py           # JSON + CSV persistence
+│   └── webhook_dispatcher.py        # Outbound POST to maiorbichoo.com
+├── api/
+│   └── endpoints.py                 # FastAPI inbound endpoints
+├── service/
+│   └── orchestrator.py              # Run loop + APScheduler
+└── tests/
+    └── test_parsers.py              # Unit tests (no network required)
+```

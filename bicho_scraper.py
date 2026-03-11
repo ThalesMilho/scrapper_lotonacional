@@ -29,43 +29,40 @@ class Source:
 
 
 ALL_SOURCES: list[Source] = [
-    Source("SRC_NACIONAL", "https://www.resultadofacil.com.br/resultados-loteria-nacional-de-hoje"),
-    Source("SRC_RJ", "https://www.resultadofacil.com.br/resultado-do-jogo-do-bicho/RJ"),
-    Source("SRC_SP", "https://www.resultadofacil.com.br/resultado-do-jogo-do-bicho/SP"),
-    Source("SRC_GO", "https://www.resultadofacil.com.br/resultado-do-jogo-do-bicho/GO"),
-    Source("SRC_BA", "https://www.resultadofacil.com.br/resultado-do-jogo-do-bicho/BA"),
-    Source("SRC_MG", "https://www.resultadofacil.com.br/resultado-do-jogo-do-bicho/MG"),
-    Source("SRC_LOTEP", "http://resultadofacil.com.br/resultados-lotep-de-hoje"),
-    Source("SRC_FEDERAL", "https://www.resultadofacil.com.br/ultimos-resultados-da-federal"),
+    Source("SRC_NACIONAL",  "https://www.resultadofacil.com.br/resultados-loteria-nacional-de-hoje"),
+    Source("SRC_BOA_SORTE", "https://www.resultadofacil.com.br/resultados-boa-sorte-de-hoje"),
+    Source("SRC_LOOK",      "https://www.resultadofacil.com.br/resultados-look-loterias-de-hoje"),
+    Source("SRC_PT_RIO",    "https://www.resultadofacil.com.br/resultados-pt-rio-de-hoje"),
+    Source("SRC_LOTEP",     "http://resultadofacil.com.br/resultados-lotep-de-hoje"),
 ]
 
 
 EXPECTED_TIMES: dict[str, set[str]] = {
-    "LT_NACIONAL": {"02:00", "08:00", "10:00", "12:00"},
-    "LT_LOOK": {"07:00", "09:00", "11:00"},
-    "PT_SP": {"08:00", "10:00", "12:00"},
-    "LT_PT_RIO": {"09:00", "11:00"},
-    "LT_BOASORTE": {"09:00", "11:00"},
-    "LT_LOTEP": {"09:00", "10:00", "12:00"},
-    "LT_BAHIA": {"10:00", "12:00"},
-    "LT_MINAS_SALV": {"13:00"},
-    "LT_FEDERAL": set(),
+    "LT_NACIONAL":  {"02:00", "08:00", "10:00", "12:00", "15:00", "17:00", "19:00", "21:00"},
+    "LT_LOOK":      {"07:00", "09:00", "11:00", "14:00", "16:00", "18:00"},
+    "LT_BOASORTE":  {"09:00", "11:00", "14:00", "16:00", "18:00"},
+    "LT_PT_RIO":    {"09:00", "11:00", "14:00", "16:00", "18:00"},
+    "LT_LOTEP":     {"09:00", "10:00", "10:45", "12:00", "12:45", "15:45", "18:00"},
+    "LT_BAHIA":     {"10:00", "12:00"},
+    "LT_MINAS_SALV":{"13:00"},
+    "LT_FEDERAL":   set(),
 }
 
 
 LOTTERY_MAP: list[tuple[str, str]] = [
     ("MINAS SALVADOR", "LT_MINAS_SALV"),
-    ("MINAS SALV", "LT_MINAS_SALV"),
-    ("BOASORTE", "LT_BOASORTE"),
-    ("BOA SORTE", "LT_BOASORTE"),
-    ("PT RIO", "LT_PT_RIO"),
-    ("NACIONAL", "LT_NACIONAL"),
-    ("LOTEP", "LT_LOTEP"),
-    ("BAHIA", "LT_BAHIA"),
-    ("LOOK", "LT_LOOK"),
-    ("PT SP", "PT_SP"),
-    ("PT/SP", "PT_SP"),
-    ("FEDERAL", "LT_FEDERAL"),
+    ("MINAS SALV",     "LT_MINAS_SALV"),
+    ("BOA SORTE",      "LT_BOASORTE"),
+    ("BOASORTE",       "LT_BOASORTE"),
+    ("LOOK LOTERIAS",  "LT_LOOK"),
+    ("LOOK",           "LT_LOOK"),
+    ("PT-RIO",         "LT_PT_RIO"),
+    ("PT RIO",         "LT_PT_RIO"),
+    ("PTRIO",          "LT_PT_RIO"),
+    ("NACIONAL",       "LT_NACIONAL"),
+    ("LOTEP",          "LT_LOTEP"),
+    ("BAHIA",          "LT_BAHIA"),
+    ("FEDERAL",        "LT_FEDERAL"),
 ]
 
 
@@ -113,6 +110,17 @@ BLOCK_HEADER_PATTERN = re.compile(
     re.IGNORECASE,
 )
 
+# Generic header pattern — matches ALL sources on resultadofacil.com.br:
+#   "BOA SORTE - GOIÁS, 09h - Resultado do dia 08/03/2026 (Domingo)"
+#   "LOOK LOTERIAS - GOIÁS, 14h - Resultado do dia 10/03/2026 (Terça-feira)"
+#   "PTM-RJ 09HS - Resultado do dia 10/03/2026 (Terça-feira)"
+#   "MEIO-DIA-RJ 12HS - Resultado do dia 10/03/2026"
+#   and also Nacional (as fallback)
+BLOCK_HEADER_GENERIC_PATTERN = re.compile(
+    r".+?(?:\d{2}[Hh][Ss]?|\d{1,2}[Hh]|\d{2}:\d{2}).{0,30}Resultado\s+do\s+dia\s+\d{2}/\d{2}/\d{4}",
+    re.IGNORECASE,
+)
+
 TIME_PATTERN = re.compile(r"(\d{2})HS", re.IGNORECASE)
 
 RESULT_LINE_PATTERN = re.compile(
@@ -154,17 +162,24 @@ def detect_variant(header: str) -> str:
 
 
 def extract_time(header: str) -> tuple[Optional[str], Optional[str]]:
-    # Try HH:MM format first (e.g., "02:00")
+    # 1. HH:MM  (Nacional style: "02:00")
     match = re.search(r"(\d{2}:\d{2})", header or "")
     if match:
         time_norm = match.group(1)
         return time_norm, time_norm
-    # Fallback to HS format (e.g., "09HS")
+    # 2. XXh or Xh  (Boa Sorte / Look style: "09h", "11h", "14h")
+    match = re.search(r"\b(\d{1,2})[Hh]\b", header or "")
+    if match:
+        hour = match.group(1).zfill(2)
+        time_norm = f"{hour}:00"
+        time_raw  = f"{hour}h"
+        return time_norm, time_raw
+    # 3. XXHS fallback (state pages: "09HS", "12HS")
     match = TIME_PATTERN.search(header or "")
     if match:
         hour = match.group(1)
         time_norm = f"{hour}:00"
-        time_raw = f"{hour}HS"
+        time_raw  = f"{hour}HS"
         return time_norm, time_raw
     return None, None
 
@@ -677,27 +692,203 @@ async def run(output_file: Optional[str] = None, date_br: Optional[str] = None) 
             await browser.close()
 
 
+
+# ══════════════════════════════════════════════════════════════════════════════
+# WEBHOOK DISPATCHER
+# Sends scraped draws to maiorbicho.com after every successful scrape run.
+# Configure via .env:
+#   WEBHOOK_URL=https://maiorbicho.com/api/webhooks/lottery-results
+#   WEBHOOK_API_KEY=your-secret-token
+# ══════════════════════════════════════════════════════════════════════════════
+
+import os
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # dotenv optional — fall back to real env vars
+
+WEBHOOK_URL     = os.getenv("WEBHOOK_URL", "")
+WEBHOOK_API_KEY = os.getenv("WEBHOOK_API_KEY", "")
+
+
+async def _dispatch_webhook(draws: list[dict[str, Any]]) -> None:
+    """POST all draws to maiorbicho.com. Skips silently if WEBHOOK_URL not set."""
+    if not WEBHOOK_URL:
+        logger.info("[webhook] WEBHOOK_URL not set — skipping dispatch")
+        return
+
+    try:
+        import httpx
+    except ImportError:
+        logger.warning("[webhook] httpx not installed — run: pip install httpx")
+        return
+
+    # Build payload: one envelope with all draws
+    payload = {
+        "scraped_at_utc": datetime.utcnow().isoformat() + "Z",
+        "total_draws": len(draws),
+        "draws": draws,
+    }
+
+    headers = {
+        "Authorization": f"Bearer {WEBHOOK_API_KEY}",
+        "Content-Type":  "application/json",
+        "Accept":        "application/json",
+    }
+
+    for attempt in range(1, 4):
+        try:
+            async with httpx.AsyncClient(timeout=15.0) as client:
+                r = await client.post(
+                    WEBHOOK_URL,
+                    content=json.dumps(payload, ensure_ascii=False, default=str),
+                    headers=headers,
+                )
+            if 200 <= r.status_code < 300:
+                logger.info(f"[webhook] ✅ Delivered {len(draws)} draws → HTTP {r.status_code}")
+                return
+            elif 400 <= r.status_code < 500:
+                logger.error(f"[webhook] ❌ Client error {r.status_code}: {r.text[:300]}")
+                return  # don't retry on 4xx
+            else:
+                logger.warning(f"[webhook] attempt {attempt} → HTTP {r.status_code}, retrying…")
+        except Exception as exc:
+            logger.warning(f"[webhook] attempt {attempt} error: {exc}")
+        await asyncio.sleep(5 * attempt)
+
+    logger.error("[webhook] ❌ Failed after 3 attempts")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# SMART SCHEDULE
+#
+# Draw times observed from live data:
+#
+#   SRC_NACIONAL   02:00 08:00 10:00 12:00 15:00 17:00  (+ occasional 19, 21)
+#   SRC_BOA_SORTE  09:00 11:00 14:00 16:00 18:00
+#   SRC_LOOK       07:00 09:00 11:00 14:00 16:00 18:00
+#   SRC_PT_RIO     09:00 11:00 14:00 16:00 18:00
+#   SRC_LOTEP      10:45 12:45 15:45 18:00
+#
+# We fire the full scraper 10 minutes after each draw slot — this gives
+# the site time to post results without hitting it too early.
+# All times are Brasília (BRT = UTC-3, no DST).
+#
+# Consolidated fire times (union of all draw times + 10 min):
+#   02:10  07:10  08:10  09:10  10:10  10:55
+#   11:10  12:10  12:55  14:10  15:10  15:55
+#   16:10  17:10  18:10  19:10  21:10
+# ══════════════════════════════════════════════════════════════════════════════
+
+SCHEDULE_TIMES_BRT = [
+    "02:10", "07:10", "08:10", "09:10", "10:10", "10:55",
+    "11:10", "12:10", "12:55", "14:10", "15:10", "15:55",
+    "16:10", "17:10", "18:10", "19:10", "21:10",
+]
+
+OUTPUT_FILE_DEFAULT = "all.json"
+
+
+async def _scheduled_job() -> None:
+    """One full scrape + webhook dispatch cycle — called by the scheduler."""
+    logger.info("═" * 60)
+    logger.info("[scheduler] Scheduled scrape starting…")
+    output_file = os.getenv("SCRAPER_OUTPUT", OUTPUT_FILE_DEFAULT)
+    result = await run(output_file=output_file)
+    draws = result.get("draws", [])
+    complete = [d for d in draws if not d.get("incomplete")]
+    logger.info(f"[scheduler] {len(draws)} draws scraped, {len(complete)} complete")
+    await _dispatch_webhook(draws)
+    logger.info("═" * 60)
+
+
+async def _run_scheduler() -> None:
+    """Start APScheduler with all draw-time jobs, run forever."""
+    try:
+        from apscheduler.schedulers.asyncio import AsyncIOScheduler
+        from apscheduler.triggers.cron import CronTrigger
+    except ImportError:
+        logger.error("[scheduler] apscheduler not installed — run: pip install apscheduler")
+        return
+
+    scheduler = AsyncIOScheduler(timezone="America/Sao_Paulo")
+
+    for time_str in SCHEDULE_TIMES_BRT:
+        h, m = time_str.split(":")
+        scheduler.add_job(
+            _scheduled_job,
+            CronTrigger(hour=int(h), minute=int(m), timezone="America/Sao_Paulo"),
+            id=f"scrape_{h}_{m}",
+            replace_existing=True,
+            misfire_grace_time=300,  # tolerate up to 5 min late start
+        )
+        logger.info(f"[scheduler] Job registered: {time_str} BRT")
+
+    scheduler.start()
+    logger.info(f"[scheduler] Running — {len(SCHEDULE_TIMES_BRT)} jobs scheduled. Ctrl+C to stop.")
+
+    # Print next fire times so the operator can verify
+    for job in sorted(scheduler.get_jobs(), key=lambda j: str(j.next_run_time)):
+        logger.info(f"[scheduler] Next: {job.id} → {job.next_run_time}")
+
+    # Keep alive
+    try:
+        while True:
+            await asyncio.sleep(60)
+    except (KeyboardInterrupt, SystemExit):
+        logger.info("[scheduler] Stopping…")
+        scheduler.shutdown()
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# CLI
+# ══════════════════════════════════════════════════════════════════════════════
+
 def _parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Jogo do Bicho scraper (resultadofacil.com.br)")
-    parser.add_argument("--output", dest="output_file", default=None, help="Write JSON output to a file")
-    parser.add_argument("--date", dest="date_br", default=None, help="Target date in DD/MM/YYYY (default: today)")
-    parser.add_argument("--source", dest="source_key", default=None, help="Run only a single source (e.g. SRC_NACIONAL)")
-    parser.add_argument(
-        "--debug-raw",
-        dest="debug_raw",
-        default=None,
-        metavar="SRC_KEY",
-        help="Load only one source, print raw page inner_text(body), and exit",
+    parser = argparse.ArgumentParser(
+        description="Jogo do Bicho scraper + scheduler (resultadofacil.com.br)",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Modes:
+  (no args)           scrape once, write all.json, exit
+  --output FILE       scrape once, write to FILE, exit
+  --scheduler         run as daemon: scrape on schedule + webhook dispatch
+  --source SRC_KEY    scrape only one source (e.g. SRC_PT_RIO)
+  --debug-raw SRC_KEY print raw page body text and exit
+
+Schedule times (BRT): """ + "  ".join(SCHEDULE_TIMES_BRT),
     )
+    parser.add_argument("--output",      dest="output_file", default=None)
+    parser.add_argument("--date",        dest="date_br",     default=None)
+    parser.add_argument("--source",      dest="source_key",  default=None)
+    parser.add_argument("--scheduler",   dest="scheduler",   action="store_true",
+                        help="Run as scheduler daemon (fires at fixed BRT times)")
+    parser.add_argument("--debug-raw",   dest="debug_raw",   default=None, metavar="SRC_KEY")
     return parser.parse_args()
 
 
 if __name__ == "__main__":
+    _configure_logging()
     args = _parse_args()
+
     if args.debug_raw:
         asyncio.run(debug_raw(args.debug_raw))
+
+    elif args.scheduler:
+        # ── Daemon mode: scrape once immediately, then follow the schedule
+        async def _daemon():
+            logger.info("[scheduler] Initial scrape on startup…")
+            await _scheduled_job()
+            await _run_scheduler()
+        asyncio.run(_daemon())
+
     else:
+        # ── One-shot mode
         if args.source_key:
-            # Override global execution order to only one source.
             ALL_SOURCES[:] = [_find_source_or_raise(args.source_key)]
-        asyncio.run(run(output_file=args.output_file, date_br=args.date_br))
+        output = args.output_file or os.getenv("SCRAPER_OUTPUT", OUTPUT_FILE_DEFAULT)
+        result = asyncio.run(run(output_file=output, date_br=args.date_br))
+        # Also dispatch webhook after one-shot if configured
+        if WEBHOOK_URL:
+            asyncio.run(_dispatch_webhook(result.get("draws", [])))

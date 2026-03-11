@@ -1,0 +1,258 @@
+"""
+scrapers/resultado_facil_scraper.py
+────────────────────────────────────
+Handles three sources from resultadofacil.com.br:
+
+  1. BOA SORTE         /resultados-boa-sorte-de-hoje
+  2. LOOK LOTERIAS     /resultados-look-loterias-de-hoje
+  3. BICHO RJ          /resultado-do-jogo-do-bicho/rj
+
+All three share an identical HTML table structure, so one parser covers them.
+Sections are separated by <h3> headings like:
+  "BOA SORTE - GOIÁS, 14h - Resultado do dia 08/03/2026 (Domingo)"
+
+Table columns: Prêmio | Milhar | Grupo | Bicho
+Some rows also have "6º [soma]" and "7º [mult]" — these are handled.
+Look Loterias adds a "Super 5: xx yy zz" bullet below each table.
+"""
+
+from __future__ import annotations
+
+import logging
+import re
+from typing import List, Optional
+
+from bs4 import BeautifulSoup, Tag
+
+from models.schemas import (
+    DrawEntry,
+    DrawSession,
+    SourceID,
+    Super5Entry,
+)
+from scrapers.base_scraper import BaseScraper
+from scrapers.http_client import LotteryHttpClient
+
+log = logging.getLogger("scraper.resultado_facil")
+
+# ── premio labels that are NOT milhar entries (derived rows)
+_SKIP_PREMIOS = {"soma", "mult"}
+
+# ── state codes for bicho RJ variants
+_RJ_BANCAS = {
+    "pt,": "PT",
+    "ptm": "PTM",
+    "ptv": "PTV",
+    "ptn": "PTN",
+    "coruja": "CORUJA",
+}
+
+
+def _detect_banca(heading_lower: str) -> Optional[str]:
+    for key, banca in _RJ_BANCAS.items():
+        if key in heading_lower:
+            return banca
+    return None
+
+
+class ResultadoFacilScraper(BaseScraper):
+    """
+    Generic ResultadoFácil scraper. Instantiate with the desired SourceID + URL.
+    """
+
+    def __init__(
+        self,
+        client: LotteryHttpClient,
+        source_id: SourceID,
+        url: str,
+        state: Optional[str] = None,
+    ) -> None:
+        super().__init__(client)
+        self.source_id = source_id
+        self.url = url
+        self._state = state
+
+    # ── Public API ───────────────────────────────────────────────────────────
+
+    def parse_html(self, html: str) -> List[DrawSession]:
+        soup = BeautifulSoup(html, "lxml")
+        sessions: List[DrawSession] = []
+
+        # Find all <h3> section headings — each one precedes a draw block
+        headings = soup.find_all("h3")
+
+        for h3 in headings:
+            label = self._clean(h3.get_text())
+            if not label:
+                continue
+
+            draw_date = self._extract_date_from_heading(label)
+            draw_time = self._extract_time_from_heading(label)
+
+            if not draw_date:
+                # Not a result heading (e.g. generic section headings)
+                continue
+
+            # The table immediately follows the <h3> (may have intervening img)
+            table = self._next_table(h3)
+            if table is None:
+                log.debug(f"No table after heading: {label!r}")
+                continue
+
+            entries = self._parse_table(table)
+            if not entries:
+                log.debug(f"Empty entries for: {label!r}")
+                continue
+
+            # Super 5 — appears as a <li> or <p> right after the table
+            super5 = self._parse_super5(table)
+
+            # Soma / Mult — rows with "soma" / "mult" in premio column
+            soma, mult = self._extract_soma_mult(table)
+
+            # Detect sub-banca for RJ
+            banca: Optional[str] = None
+            if self.source_id == SourceID.BICHO_RJ:
+                banca = _detect_banca(label.lower())
+
+            try:
+                session = DrawSession(
+                    source_id=self.source_id,
+                    source_url=self.url,
+                    draw_date=draw_date,
+                    draw_time=draw_time,
+                    draw_label=label,
+                    state=self._state,
+                    banca=banca,
+                    entries=entries,
+                    super5=super5,
+                    soma=soma,
+                    mult=mult,
+                )
+                sessions.append(session)
+                log.debug(f"Session OK: {label!r} — {len(entries)} entries")
+            except Exception as exc:
+                log.warning(f"Validation error for session '{label}': {exc}")
+
+        return sessions
+
+    # ── Private helpers ──────────────────────────────────────────────────────
+
+    @staticmethod
+    def _next_table(tag: Tag) -> Optional[Tag]:
+        """Walk siblings until we find the next <table>."""
+        sibling = tag.find_next_sibling()
+        while sibling:
+            if sibling.name == "table":
+                return sibling
+            # Stop if we hit the next section heading
+            if sibling.name in ("h3", "h2"):
+                return None
+            sibling = sibling.find_next_sibling()
+        return None
+
+    def _parse_table(self, table: Tag) -> List[DrawEntry]:
+        entries: List[DrawEntry] = []
+        rows = table.find_all("tr")
+
+        for row in rows[1:]:  # skip header row
+            cols = [self._clean(td.get_text()) for td in row.find_all("td")]
+            if len(cols) < 4:
+                continue
+
+            premio_raw, milhar_raw, grupo_raw, bicho_raw = cols[:4]
+
+            # Skip derived rows (soma, mult)
+            premio_label = premio_raw.lower()
+            if any(s in premio_label for s in _SKIP_PREMIOS):
+                continue
+
+            # Parse premio number: "1º" → 1
+            premio_num = re.sub(r"[^\d]", "", premio_raw)
+            if not premio_num:
+                continue
+
+            grupo_str = re.sub(r"[^\d]", "", grupo_raw)
+            if not grupo_str:
+                continue
+
+            try:
+                entry = DrawEntry(
+                    premio=int(premio_num),
+                    milhar=milhar_raw.zfill(4),
+                    centena=milhar_raw[-3:] if len(milhar_raw) >= 3 else milhar_raw,
+                    dezena=milhar_raw[-2:] if len(milhar_raw) >= 2 else milhar_raw,
+                    grupo=int(grupo_str),
+                    bicho=bicho_raw,
+                )
+                entries.append(entry)
+            except Exception as exc:
+                log.debug(f"Row skip [{premio_raw}|{milhar_raw}|{grupo_raw}|{bicho_raw}]: {exc}")
+
+        return entries
+
+    @staticmethod
+    def _parse_super5(table: Tag) -> Optional[Super5Entry]:
+        """
+        Look for 'Super 5: nn nn nn nn nn' in the element immediately following
+        the table (typically a <li> or <p>).
+        """
+        candidate = table.find_next_sibling()
+        while candidate:
+            text = candidate.get_text(" ", strip=True) if candidate else ""
+            m = re.search(r"Super\s*5[:\s]+(\d[\d\s]+)", text, re.IGNORECASE)
+            if m:
+                nums_str = m.group(1).split()
+                try:
+                    nums = [int(n) for n in nums_str[:5]]
+                    if len(nums) == 5:
+                        return Super5Entry(numbers=nums)
+                except ValueError:
+                    pass
+            # Stop at next section
+            if candidate.name in ("h3", "h2", "table"):
+                break
+            candidate = candidate.find_next_sibling()
+        return None
+
+    def _extract_soma_mult(self, table: Tag) -> tuple[Optional[str], Optional[str]]:
+        soma = mult = None
+        for row in table.find_all("tr"):
+            cols = [self._clean(td.get_text()) for td in row.find_all("td")]
+            if len(cols) < 2:
+                continue
+            low = cols[0].lower()
+            if "soma" in low:
+                soma = cols[1]
+            elif "mult" in low:
+                mult = cols[1]
+        return soma, mult
+
+
+# ── Convenience factory functions ────────────────────────────────────────────
+
+def make_boa_sorte_scraper(client: LotteryHttpClient) -> ResultadoFacilScraper:
+    return ResultadoFacilScraper(
+        client=client,
+        source_id=SourceID.BOA_SORTE,
+        url="https://www.resultadofacil.com.br/resultados-boa-sorte-de-hoje",
+        state="GO",
+    )
+
+
+def make_look_loterias_scraper(client: LotteryHttpClient) -> ResultadoFacilScraper:
+    return ResultadoFacilScraper(
+        client=client,
+        source_id=SourceID.LOOK_LOTERIAS,
+        url="https://www.resultadofacil.com.br/resultados-look-loterias-de-hoje",
+        state="GO",
+    )
+
+
+def make_bicho_rj_scraper(client: LotteryHttpClient) -> ResultadoFacilScraper:
+    return ResultadoFacilScraper(
+        client=client,
+        source_id=SourceID.BICHO_RJ,
+        url="https://www.resultadofacil.com.br/resultado-do-jogo-do-bicho/rj",
+        state="RJ",
+    )
