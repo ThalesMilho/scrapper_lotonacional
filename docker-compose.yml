@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  bicho-api:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    volumes:
+      - ./all.json:/app/all.json
+    restart: unless-stopped
