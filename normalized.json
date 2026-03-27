@@ -1,0 +1,2282 @@
+{
+  "scraped_at": "2026-03-27T00:38:33.728731Z",
+  "date": "26/03/2026",
+  "total": 25,
+  "draws": [
+    {
+      "loteria_id": 3,
+      "time_raw": "02:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "9531",
+          "group_id": 8,
+          "milhar": "9531",
+          "centena": "531",
+          "dezena": "31",
+          "unidade": "1"
+        },
+        {
+          "pos": 2,
+          "number": "5301",
+          "group_id": 1,
+          "milhar": "5301",
+          "centena": "301",
+          "dezena": "01",
+          "unidade": "1"
+        },
+        {
+          "pos": 3,
+          "number": "6193",
+          "group_id": 24,
+          "milhar": "6193",
+          "centena": "193",
+          "dezena": "93",
+          "unidade": "3"
+        },
+        {
+          "pos": 4,
+          "number": "5154",
+          "group_id": 14,
+          "milhar": "5154",
+          "centena": "154",
+          "dezena": "54",
+          "unidade": "4"
+        },
+        {
+          "pos": 5,
+          "number": "1423",
+          "group_id": 6,
+          "milhar": "1423",
+          "centena": "423",
+          "dezena": "23",
+          "unidade": "3"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "531",
+        "MILHAR": "9531",
+        "UNIDADE": "1",
+        "DEZENA": "31",
+        "DUQUE_DEZ": [
+          "31",
+          "01"
+        ],
+        "TERNO_DEZ": [
+          "31",
+          "01",
+          "93"
+        ],
+        "GRUPO": "8",
+        "DUQUE_GP": [
+          8,
+          1
+        ],
+        "TERNO_GP": [
+          8,
+          1,
+          24
+        ],
+        "QUADRA_GP": [
+          8,
+          1,
+          24,
+          14
+        ],
+        "QUINA_GP": [
+          8,
+          1,
+          24,
+          14,
+          6
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 3,
+      "time_raw": "08:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "6236",
+          "group_id": 9,
+          "milhar": "6236",
+          "centena": "236",
+          "dezena": "36",
+          "unidade": "6"
+        },
+        {
+          "pos": 2,
+          "number": "4996",
+          "group_id": 24,
+          "milhar": "4996",
+          "centena": "996",
+          "dezena": "96",
+          "unidade": "6"
+        },
+        {
+          "pos": 3,
+          "number": "6053",
+          "group_id": 14,
+          "milhar": "6053",
+          "centena": "053",
+          "dezena": "53",
+          "unidade": "3"
+        },
+        {
+          "pos": 4,
+          "number": "9397",
+          "group_id": 25,
+          "milhar": "9397",
+          "centena": "397",
+          "dezena": "97",
+          "unidade": "7"
+        },
+        {
+          "pos": 5,
+          "number": "4283",
+          "group_id": 21,
+          "milhar": "4283",
+          "centena": "283",
+          "dezena": "83",
+          "unidade": "3"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "236",
+        "MILHAR": "6236",
+        "UNIDADE": "6",
+        "DEZENA": "36",
+        "DUQUE_DEZ": [
+          "36",
+          "96"
+        ],
+        "TERNO_DEZ": [
+          "36",
+          "96",
+          "53"
+        ],
+        "GRUPO": "9",
+        "DUQUE_GP": [
+          9,
+          24
+        ],
+        "TERNO_GP": [
+          9,
+          24,
+          14
+        ],
+        "QUADRA_GP": [
+          9,
+          24,
+          14,
+          25
+        ],
+        "QUINA_GP": [
+          9,
+          24,
+          14,
+          25,
+          21
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 3,
+      "time_raw": "10:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "6199",
+          "group_id": 25,
+          "milhar": "6199",
+          "centena": "199",
+          "dezena": "99",
+          "unidade": "9"
+        },
+        {
+          "pos": 2,
+          "number": "2446",
+          "group_id": 12,
+          "milhar": "2446",
+          "centena": "446",
+          "dezena": "46",
+          "unidade": "6"
+        },
+        {
+          "pos": 3,
+          "number": "4679",
+          "group_id": 20,
+          "milhar": "4679",
+          "centena": "679",
+          "dezena": "79",
+          "unidade": "9"
+        },
+        {
+          "pos": 4,
+          "number": "6293",
+          "group_id": 24,
+          "milhar": "6293",
+          "centena": "293",
+          "dezena": "93",
+          "unidade": "3"
+        },
+        {
+          "pos": 5,
+          "number": "2217",
+          "group_id": 5,
+          "milhar": "2217",
+          "centena": "217",
+          "dezena": "17",
+          "unidade": "7"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "199",
+        "MILHAR": "6199",
+        "UNIDADE": "9",
+        "DEZENA": "99",
+        "DUQUE_DEZ": [
+          "99",
+          "46"
+        ],
+        "TERNO_DEZ": [
+          "99",
+          "46",
+          "79"
+        ],
+        "GRUPO": "25",
+        "DUQUE_GP": [
+          25,
+          12
+        ],
+        "TERNO_GP": [
+          25,
+          12,
+          20
+        ],
+        "QUADRA_GP": [
+          25,
+          12,
+          20,
+          24
+        ],
+        "QUINA_GP": [
+          25,
+          12,
+          20,
+          24,
+          5
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 3,
+      "time_raw": "12:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "9274",
+          "group_id": 19,
+          "milhar": "9274",
+          "centena": "274",
+          "dezena": "74",
+          "unidade": "4"
+        },
+        {
+          "pos": 2,
+          "number": "1788",
+          "group_id": 22,
+          "milhar": "1788",
+          "centena": "788",
+          "dezena": "88",
+          "unidade": "8"
+        },
+        {
+          "pos": 3,
+          "number": "2132",
+          "group_id": 8,
+          "milhar": "2132",
+          "centena": "132",
+          "dezena": "32",
+          "unidade": "2"
+        },
+        {
+          "pos": 4,
+          "number": "1128",
+          "group_id": 7,
+          "milhar": "1128",
+          "centena": "128",
+          "dezena": "28",
+          "unidade": "8"
+        },
+        {
+          "pos": 5,
+          "number": "6915",
+          "group_id": 4,
+          "milhar": "6915",
+          "centena": "915",
+          "dezena": "15",
+          "unidade": "5"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "274",
+        "MILHAR": "9274",
+        "UNIDADE": "4",
+        "DEZENA": "74",
+        "DUQUE_DEZ": [
+          "74",
+          "88"
+        ],
+        "TERNO_DEZ": [
+          "74",
+          "88",
+          "32"
+        ],
+        "GRUPO": "19",
+        "DUQUE_GP": [
+          19,
+          22
+        ],
+        "TERNO_GP": [
+          19,
+          22,
+          8
+        ],
+        "QUADRA_GP": [
+          19,
+          22,
+          8,
+          7
+        ],
+        "QUINA_GP": [
+          19,
+          22,
+          8,
+          7,
+          4
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 3,
+      "time_raw": "15:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "7418",
+          "group_id": 5,
+          "milhar": "7418",
+          "centena": "418",
+          "dezena": "18",
+          "unidade": "8"
+        },
+        {
+          "pos": 2,
+          "number": "9668",
+          "group_id": 17,
+          "milhar": "9668",
+          "centena": "668",
+          "dezena": "68",
+          "unidade": "8"
+        },
+        {
+          "pos": 3,
+          "number": "0180",
+          "group_id": 20,
+          "milhar": "0180",
+          "centena": "180",
+          "dezena": "80",
+          "unidade": "0"
+        },
+        {
+          "pos": 4,
+          "number": "5785",
+          "group_id": 22,
+          "milhar": "5785",
+          "centena": "785",
+          "dezena": "85",
+          "unidade": "5"
+        },
+        {
+          "pos": 5,
+          "number": "5397",
+          "group_id": 25,
+          "milhar": "5397",
+          "centena": "397",
+          "dezena": "97",
+          "unidade": "7"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "418",
+        "MILHAR": "7418",
+        "UNIDADE": "8",
+        "DEZENA": "18",
+        "DUQUE_DEZ": [
+          "18",
+          "68"
+        ],
+        "TERNO_DEZ": [
+          "18",
+          "68",
+          "80"
+        ],
+        "GRUPO": "5",
+        "DUQUE_GP": [
+          5,
+          17
+        ],
+        "TERNO_GP": [
+          5,
+          17,
+          20
+        ],
+        "QUADRA_GP": [
+          5,
+          17,
+          20,
+          22
+        ],
+        "QUINA_GP": [
+          5,
+          17,
+          20,
+          22,
+          25
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 3,
+      "time_raw": "17:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "1554",
+          "group_id": 14,
+          "milhar": "1554",
+          "centena": "554",
+          "dezena": "54",
+          "unidade": "4"
+        },
+        {
+          "pos": 2,
+          "number": "7453",
+          "group_id": 14,
+          "milhar": "7453",
+          "centena": "453",
+          "dezena": "53",
+          "unidade": "3"
+        },
+        {
+          "pos": 3,
+          "number": "5072",
+          "group_id": 18,
+          "milhar": "5072",
+          "centena": "072",
+          "dezena": "72",
+          "unidade": "2"
+        },
+        {
+          "pos": 4,
+          "number": "2624",
+          "group_id": 6,
+          "milhar": "2624",
+          "centena": "624",
+          "dezena": "24",
+          "unidade": "4"
+        },
+        {
+          "pos": 5,
+          "number": "5938",
+          "group_id": 10,
+          "milhar": "5938",
+          "centena": "938",
+          "dezena": "38",
+          "unidade": "8"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "554",
+        "MILHAR": "1554",
+        "UNIDADE": "4",
+        "DEZENA": "54",
+        "DUQUE_DEZ": [
+          "54",
+          "53"
+        ],
+        "TERNO_DEZ": [
+          "54",
+          "53",
+          "72"
+        ],
+        "GRUPO": "14",
+        "DUQUE_GP": [
+          14,
+          14
+        ],
+        "TERNO_GP": [
+          14,
+          14,
+          18
+        ],
+        "QUADRA_GP": [
+          14,
+          14,
+          18,
+          6
+        ],
+        "QUINA_GP": [
+          14,
+          14,
+          18,
+          6,
+          10
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 3,
+      "time_raw": "21:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "8342",
+          "group_id": 11,
+          "milhar": "8342",
+          "centena": "342",
+          "dezena": "42",
+          "unidade": "2"
+        },
+        {
+          "pos": 2,
+          "number": "2607",
+          "group_id": 2,
+          "milhar": "2607",
+          "centena": "607",
+          "dezena": "07",
+          "unidade": "7"
+        },
+        {
+          "pos": 3,
+          "number": "4634",
+          "group_id": 9,
+          "milhar": "4634",
+          "centena": "634",
+          "dezena": "34",
+          "unidade": "4"
+        },
+        {
+          "pos": 4,
+          "number": "9059",
+          "group_id": 15,
+          "milhar": "9059",
+          "centena": "059",
+          "dezena": "59",
+          "unidade": "9"
+        },
+        {
+          "pos": 5,
+          "number": "0994",
+          "group_id": 24,
+          "milhar": "0994",
+          "centena": "994",
+          "dezena": "94",
+          "unidade": "4"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "342",
+        "MILHAR": "8342",
+        "UNIDADE": "2",
+        "DEZENA": "42",
+        "DUQUE_DEZ": [
+          "42",
+          "07"
+        ],
+        "TERNO_DEZ": [
+          "42",
+          "07",
+          "34"
+        ],
+        "GRUPO": "11",
+        "DUQUE_GP": [
+          11,
+          2
+        ],
+        "TERNO_GP": [
+          11,
+          2,
+          9
+        ],
+        "QUADRA_GP": [
+          11,
+          2,
+          9,
+          15
+        ],
+        "QUINA_GP": [
+          11,
+          2,
+          9,
+          15,
+          24
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 4,
+      "time_raw": "09:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "6044",
+          "group_id": 11,
+          "milhar": "6044",
+          "centena": "044",
+          "dezena": "44",
+          "unidade": "4"
+        },
+        {
+          "pos": 2,
+          "number": "8627",
+          "group_id": 7,
+          "milhar": "8627",
+          "centena": "627",
+          "dezena": "27",
+          "unidade": "7"
+        },
+        {
+          "pos": 3,
+          "number": "8792",
+          "group_id": 23,
+          "milhar": "8792",
+          "centena": "792",
+          "dezena": "92",
+          "unidade": "2"
+        },
+        {
+          "pos": 4,
+          "number": "1386",
+          "group_id": 22,
+          "milhar": "1386",
+          "centena": "386",
+          "dezena": "86",
+          "unidade": "6"
+        },
+        {
+          "pos": 5,
+          "number": "5758",
+          "group_id": 15,
+          "milhar": "5758",
+          "centena": "758",
+          "dezena": "58",
+          "unidade": "8"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "044",
+        "MILHAR": "6044",
+        "UNIDADE": "4",
+        "DEZENA": "44",
+        "DUQUE_DEZ": [
+          "44",
+          "27"
+        ],
+        "TERNO_DEZ": [
+          "44",
+          "27",
+          "92"
+        ],
+        "GRUPO": "11",
+        "DUQUE_GP": [
+          11,
+          7
+        ],
+        "TERNO_GP": [
+          11,
+          7,
+          23
+        ],
+        "QUADRA_GP": [
+          11,
+          7,
+          23,
+          22
+        ],
+        "QUINA_GP": [
+          11,
+          7,
+          23,
+          22,
+          15
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 4,
+      "time_raw": "11:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "2867",
+          "group_id": 17,
+          "milhar": "2867",
+          "centena": "867",
+          "dezena": "67",
+          "unidade": "7"
+        },
+        {
+          "pos": 2,
+          "number": "9741",
+          "group_id": 11,
+          "milhar": "9741",
+          "centena": "741",
+          "dezena": "41",
+          "unidade": "1"
+        },
+        {
+          "pos": 3,
+          "number": "1944",
+          "group_id": 11,
+          "milhar": "1944",
+          "centena": "944",
+          "dezena": "44",
+          "unidade": "4"
+        },
+        {
+          "pos": 4,
+          "number": "9197",
+          "group_id": 25,
+          "milhar": "9197",
+          "centena": "197",
+          "dezena": "97",
+          "unidade": "7"
+        },
+        {
+          "pos": 5,
+          "number": "2093",
+          "group_id": 24,
+          "milhar": "2093",
+          "centena": "093",
+          "dezena": "93",
+          "unidade": "3"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "867",
+        "MILHAR": "2867",
+        "UNIDADE": "7",
+        "DEZENA": "67",
+        "DUQUE_DEZ": [
+          "67",
+          "41"
+        ],
+        "TERNO_DEZ": [
+          "67",
+          "41",
+          "44"
+        ],
+        "GRUPO": "17",
+        "DUQUE_GP": [
+          17,
+          11
+        ],
+        "TERNO_GP": [
+          17,
+          11,
+          11
+        ],
+        "QUADRA_GP": [
+          17,
+          11,
+          11,
+          25
+        ],
+        "QUINA_GP": [
+          17,
+          11,
+          11,
+          25,
+          24
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 4,
+      "time_raw": "14:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "8956",
+          "group_id": 14,
+          "milhar": "8956",
+          "centena": "956",
+          "dezena": "56",
+          "unidade": "6"
+        },
+        {
+          "pos": 2,
+          "number": "6204",
+          "group_id": 1,
+          "milhar": "6204",
+          "centena": "204",
+          "dezena": "04",
+          "unidade": "4"
+        },
+        {
+          "pos": 3,
+          "number": "2200",
+          "group_id": 25,
+          "milhar": "2200",
+          "centena": "200",
+          "dezena": "00",
+          "unidade": "0"
+        },
+        {
+          "pos": 4,
+          "number": "1042",
+          "group_id": 11,
+          "milhar": "1042",
+          "centena": "042",
+          "dezena": "42",
+          "unidade": "2"
+        },
+        {
+          "pos": 5,
+          "number": "7201",
+          "group_id": 1,
+          "milhar": "7201",
+          "centena": "201",
+          "dezena": "01",
+          "unidade": "1"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "956",
+        "MILHAR": "8956",
+        "UNIDADE": "6",
+        "DEZENA": "56",
+        "DUQUE_DEZ": [
+          "56",
+          "04"
+        ],
+        "TERNO_DEZ": [
+          "56",
+          "04",
+          "00"
+        ],
+        "GRUPO": "14",
+        "DUQUE_GP": [
+          14,
+          1
+        ],
+        "TERNO_GP": [
+          14,
+          1,
+          25
+        ],
+        "QUADRA_GP": [
+          14,
+          1,
+          25,
+          11
+        ],
+        "QUINA_GP": [
+          14,
+          1,
+          25,
+          11,
+          1
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 4,
+      "time_raw": "16:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "2458",
+          "group_id": 15,
+          "milhar": "2458",
+          "centena": "458",
+          "dezena": "58",
+          "unidade": "8"
+        },
+        {
+          "pos": 2,
+          "number": "1444",
+          "group_id": 11,
+          "milhar": "1444",
+          "centena": "444",
+          "dezena": "44",
+          "unidade": "4"
+        },
+        {
+          "pos": 3,
+          "number": "0888",
+          "group_id": 22,
+          "milhar": "0888",
+          "centena": "888",
+          "dezena": "88",
+          "unidade": "8"
+        },
+        {
+          "pos": 4,
+          "number": "9102",
+          "group_id": 1,
+          "milhar": "9102",
+          "centena": "102",
+          "dezena": "02",
+          "unidade": "2"
+        },
+        {
+          "pos": 5,
+          "number": "9304",
+          "group_id": 1,
+          "milhar": "9304",
+          "centena": "304",
+          "dezena": "04",
+          "unidade": "4"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "458",
+        "MILHAR": "2458",
+        "UNIDADE": "8",
+        "DEZENA": "58",
+        "DUQUE_DEZ": [
+          "58",
+          "44"
+        ],
+        "TERNO_DEZ": [
+          "58",
+          "44",
+          "88"
+        ],
+        "GRUPO": "15",
+        "DUQUE_GP": [
+          15,
+          11
+        ],
+        "TERNO_GP": [
+          15,
+          11,
+          22
+        ],
+        "QUADRA_GP": [
+          15,
+          11,
+          22,
+          1
+        ],
+        "QUINA_GP": [
+          15,
+          11,
+          22,
+          1,
+          1
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 4,
+      "time_raw": "18:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "9949",
+          "group_id": 13,
+          "milhar": "9949",
+          "centena": "949",
+          "dezena": "49",
+          "unidade": "9"
+        },
+        {
+          "pos": 2,
+          "number": "8198",
+          "group_id": 25,
+          "milhar": "8198",
+          "centena": "198",
+          "dezena": "98",
+          "unidade": "8"
+        },
+        {
+          "pos": 3,
+          "number": "5803",
+          "group_id": 1,
+          "milhar": "5803",
+          "centena": "803",
+          "dezena": "03",
+          "unidade": "3"
+        },
+        {
+          "pos": 4,
+          "number": "0309",
+          "group_id": 3,
+          "milhar": "0309",
+          "centena": "309",
+          "dezena": "09",
+          "unidade": "9"
+        },
+        {
+          "pos": 5,
+          "number": "0036",
+          "group_id": 9,
+          "milhar": "0036",
+          "centena": "036",
+          "dezena": "36",
+          "unidade": "6"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "949",
+        "MILHAR": "9949",
+        "UNIDADE": "9",
+        "DEZENA": "49",
+        "DUQUE_DEZ": [
+          "49",
+          "98"
+        ],
+        "TERNO_DEZ": [
+          "49",
+          "98",
+          "03"
+        ],
+        "GRUPO": "13",
+        "DUQUE_GP": [
+          13,
+          25
+        ],
+        "TERNO_GP": [
+          13,
+          25,
+          1
+        ],
+        "QUADRA_GP": [
+          13,
+          25,
+          1,
+          3
+        ],
+        "QUINA_GP": [
+          13,
+          25,
+          1,
+          3,
+          9
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 1,
+      "time_raw": "07:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "5635",
+          "group_id": 9,
+          "milhar": "5635",
+          "centena": "635",
+          "dezena": "35",
+          "unidade": "5"
+        },
+        {
+          "pos": 2,
+          "number": "3195",
+          "group_id": 24,
+          "milhar": "3195",
+          "centena": "195",
+          "dezena": "95",
+          "unidade": "5"
+        },
+        {
+          "pos": 3,
+          "number": "8812",
+          "group_id": 3,
+          "milhar": "8812",
+          "centena": "812",
+          "dezena": "12",
+          "unidade": "2"
+        },
+        {
+          "pos": 4,
+          "number": "8434",
+          "group_id": 9,
+          "milhar": "8434",
+          "centena": "434",
+          "dezena": "34",
+          "unidade": "4"
+        },
+        {
+          "pos": 5,
+          "number": "2854",
+          "group_id": 14,
+          "milhar": "2854",
+          "centena": "854",
+          "dezena": "54",
+          "unidade": "4"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "635",
+        "MILHAR": "5635",
+        "UNIDADE": "5",
+        "DEZENA": "35",
+        "DUQUE_DEZ": [
+          "35",
+          "95"
+        ],
+        "TERNO_DEZ": [
+          "35",
+          "95",
+          "12"
+        ],
+        "GRUPO": "9",
+        "DUQUE_GP": [
+          9,
+          24
+        ],
+        "TERNO_GP": [
+          9,
+          24,
+          3
+        ],
+        "QUADRA_GP": [
+          9,
+          24,
+          3,
+          9
+        ],
+        "QUINA_GP": [
+          9,
+          24,
+          3,
+          9,
+          14
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 1,
+      "time_raw": "09:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "3859",
+          "group_id": 15,
+          "milhar": "3859",
+          "centena": "859",
+          "dezena": "59",
+          "unidade": "9"
+        },
+        {
+          "pos": 2,
+          "number": "3167",
+          "group_id": 17,
+          "milhar": "3167",
+          "centena": "167",
+          "dezena": "67",
+          "unidade": "7"
+        },
+        {
+          "pos": 3,
+          "number": "0431",
+          "group_id": 8,
+          "milhar": "0431",
+          "centena": "431",
+          "dezena": "31",
+          "unidade": "1"
+        },
+        {
+          "pos": 4,
+          "number": "4565",
+          "group_id": 17,
+          "milhar": "4565",
+          "centena": "565",
+          "dezena": "65",
+          "unidade": "5"
+        },
+        {
+          "pos": 5,
+          "number": "4550",
+          "group_id": 13,
+          "milhar": "4550",
+          "centena": "550",
+          "dezena": "50",
+          "unidade": "0"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "859",
+        "MILHAR": "3859",
+        "UNIDADE": "9",
+        "DEZENA": "59",
+        "DUQUE_DEZ": [
+          "59",
+          "67"
+        ],
+        "TERNO_DEZ": [
+          "59",
+          "67",
+          "31"
+        ],
+        "GRUPO": "15",
+        "DUQUE_GP": [
+          15,
+          17
+        ],
+        "TERNO_GP": [
+          15,
+          17,
+          8
+        ],
+        "QUADRA_GP": [
+          15,
+          17,
+          8,
+          17
+        ],
+        "QUINA_GP": [
+          15,
+          17,
+          8,
+          17,
+          13
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 1,
+      "time_raw": "11:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "4836",
+          "group_id": 9,
+          "milhar": "4836",
+          "centena": "836",
+          "dezena": "36",
+          "unidade": "6"
+        },
+        {
+          "pos": 2,
+          "number": "4689",
+          "group_id": 23,
+          "milhar": "4689",
+          "centena": "689",
+          "dezena": "89",
+          "unidade": "9"
+        },
+        {
+          "pos": 3,
+          "number": "9271",
+          "group_id": 18,
+          "milhar": "9271",
+          "centena": "271",
+          "dezena": "71",
+          "unidade": "1"
+        },
+        {
+          "pos": 4,
+          "number": "8436",
+          "group_id": 9,
+          "milhar": "8436",
+          "centena": "436",
+          "dezena": "36",
+          "unidade": "6"
+        },
+        {
+          "pos": 5,
+          "number": "2982",
+          "group_id": 21,
+          "milhar": "2982",
+          "centena": "982",
+          "dezena": "82",
+          "unidade": "2"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "836",
+        "MILHAR": "4836",
+        "UNIDADE": "6",
+        "DEZENA": "36",
+        "DUQUE_DEZ": [
+          "36",
+          "89"
+        ],
+        "TERNO_DEZ": [
+          "36",
+          "89",
+          "71"
+        ],
+        "GRUPO": "9",
+        "DUQUE_GP": [
+          9,
+          23
+        ],
+        "TERNO_GP": [
+          9,
+          23,
+          18
+        ],
+        "QUADRA_GP": [
+          9,
+          23,
+          18,
+          9
+        ],
+        "QUINA_GP": [
+          9,
+          23,
+          18,
+          9,
+          21
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 1,
+      "time_raw": "14:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "9806",
+          "group_id": 2,
+          "milhar": "9806",
+          "centena": "806",
+          "dezena": "06",
+          "unidade": "6"
+        },
+        {
+          "pos": 2,
+          "number": "2902",
+          "group_id": 1,
+          "milhar": "2902",
+          "centena": "902",
+          "dezena": "02",
+          "unidade": "2"
+        },
+        {
+          "pos": 3,
+          "number": "9067",
+          "group_id": 17,
+          "milhar": "9067",
+          "centena": "067",
+          "dezena": "67",
+          "unidade": "7"
+        },
+        {
+          "pos": 4,
+          "number": "6454",
+          "group_id": 14,
+          "milhar": "6454",
+          "centena": "454",
+          "dezena": "54",
+          "unidade": "4"
+        },
+        {
+          "pos": 5,
+          "number": "9929",
+          "group_id": 8,
+          "milhar": "9929",
+          "centena": "929",
+          "dezena": "29",
+          "unidade": "9"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "806",
+        "MILHAR": "9806",
+        "UNIDADE": "6",
+        "DEZENA": "06",
+        "DUQUE_DEZ": [
+          "06",
+          "02"
+        ],
+        "TERNO_DEZ": [
+          "06",
+          "02",
+          "67"
+        ],
+        "GRUPO": "2",
+        "DUQUE_GP": [
+          2,
+          1
+        ],
+        "TERNO_GP": [
+          2,
+          1,
+          17
+        ],
+        "QUADRA_GP": [
+          2,
+          1,
+          17,
+          14
+        ],
+        "QUINA_GP": [
+          2,
+          1,
+          17,
+          14,
+          8
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 1,
+      "time_raw": "16:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "5718",
+          "group_id": 5,
+          "milhar": "5718",
+          "centena": "718",
+          "dezena": "18",
+          "unidade": "8"
+        },
+        {
+          "pos": 2,
+          "number": "4189",
+          "group_id": 23,
+          "milhar": "4189",
+          "centena": "189",
+          "dezena": "89",
+          "unidade": "9"
+        },
+        {
+          "pos": 3,
+          "number": "1078",
+          "group_id": 20,
+          "milhar": "1078",
+          "centena": "078",
+          "dezena": "78",
+          "unidade": "8"
+        },
+        {
+          "pos": 4,
+          "number": "4581",
+          "group_id": 21,
+          "milhar": "4581",
+          "centena": "581",
+          "dezena": "81",
+          "unidade": "1"
+        },
+        {
+          "pos": 5,
+          "number": "1466",
+          "group_id": 17,
+          "milhar": "1466",
+          "centena": "466",
+          "dezena": "66",
+          "unidade": "6"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "718",
+        "MILHAR": "5718",
+        "UNIDADE": "8",
+        "DEZENA": "18",
+        "DUQUE_DEZ": [
+          "18",
+          "89"
+        ],
+        "TERNO_DEZ": [
+          "18",
+          "89",
+          "78"
+        ],
+        "GRUPO": "5",
+        "DUQUE_GP": [
+          5,
+          23
+        ],
+        "TERNO_GP": [
+          5,
+          23,
+          20
+        ],
+        "QUADRA_GP": [
+          5,
+          23,
+          20,
+          21
+        ],
+        "QUINA_GP": [
+          5,
+          23,
+          20,
+          21,
+          17
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 1,
+      "time_raw": "18:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "2005",
+          "group_id": 2,
+          "milhar": "2005",
+          "centena": "005",
+          "dezena": "05",
+          "unidade": "5"
+        },
+        {
+          "pos": 2,
+          "number": "7331",
+          "group_id": 8,
+          "milhar": "7331",
+          "centena": "331",
+          "dezena": "31",
+          "unidade": "1"
+        },
+        {
+          "pos": 3,
+          "number": "2103",
+          "group_id": 1,
+          "milhar": "2103",
+          "centena": "103",
+          "dezena": "03",
+          "unidade": "3"
+        },
+        {
+          "pos": 4,
+          "number": "3132",
+          "group_id": 8,
+          "milhar": "3132",
+          "centena": "132",
+          "dezena": "32",
+          "unidade": "2"
+        },
+        {
+          "pos": 5,
+          "number": "7550",
+          "group_id": 13,
+          "milhar": "7550",
+          "centena": "550",
+          "dezena": "50",
+          "unidade": "0"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "005",
+        "MILHAR": "2005",
+        "UNIDADE": "5",
+        "DEZENA": "05",
+        "DUQUE_DEZ": [
+          "05",
+          "31"
+        ],
+        "TERNO_DEZ": [
+          "05",
+          "31",
+          "03"
+        ],
+        "GRUPO": "2",
+        "DUQUE_GP": [
+          2,
+          8
+        ],
+        "TERNO_GP": [
+          2,
+          8,
+          1
+        ],
+        "QUADRA_GP": [
+          2,
+          8,
+          1,
+          8
+        ],
+        "QUINA_GP": [
+          2,
+          8,
+          1,
+          8,
+          13
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 1,
+      "time_raw": "21:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "0121",
+          "group_id": 6,
+          "milhar": "0121",
+          "centena": "121",
+          "dezena": "21",
+          "unidade": "1"
+        },
+        {
+          "pos": 2,
+          "number": "3409",
+          "group_id": 3,
+          "milhar": "3409",
+          "centena": "409",
+          "dezena": "09",
+          "unidade": "9"
+        },
+        {
+          "pos": 3,
+          "number": "3253",
+          "group_id": 14,
+          "milhar": "3253",
+          "centena": "253",
+          "dezena": "53",
+          "unidade": "3"
+        },
+        {
+          "pos": 4,
+          "number": "6232",
+          "group_id": 8,
+          "milhar": "6232",
+          "centena": "232",
+          "dezena": "32",
+          "unidade": "2"
+        },
+        {
+          "pos": 5,
+          "number": "5968",
+          "group_id": 17,
+          "milhar": "5968",
+          "centena": "968",
+          "dezena": "68",
+          "unidade": "8"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "121",
+        "MILHAR": "0121",
+        "UNIDADE": "1",
+        "DEZENA": "21",
+        "DUQUE_DEZ": [
+          "21",
+          "09"
+        ],
+        "TERNO_DEZ": [
+          "21",
+          "09",
+          "53"
+        ],
+        "GRUPO": "6",
+        "DUQUE_GP": [
+          6,
+          3
+        ],
+        "TERNO_GP": [
+          6,
+          3,
+          14
+        ],
+        "QUADRA_GP": [
+          6,
+          3,
+          14,
+          8
+        ],
+        "QUINA_GP": [
+          6,
+          3,
+          14,
+          8,
+          17
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 2,
+      "time_raw": "09:20",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "7366",
+          "group_id": 17,
+          "milhar": "7366",
+          "centena": "366",
+          "dezena": "66",
+          "unidade": "6"
+        },
+        {
+          "pos": 2,
+          "number": "0756",
+          "group_id": 14,
+          "milhar": "0756",
+          "centena": "756",
+          "dezena": "56",
+          "unidade": "6"
+        },
+        {
+          "pos": 3,
+          "number": "1949",
+          "group_id": 13,
+          "milhar": "1949",
+          "centena": "949",
+          "dezena": "49",
+          "unidade": "9"
+        },
+        {
+          "pos": 4,
+          "number": "3335",
+          "group_id": 9,
+          "milhar": "3335",
+          "centena": "335",
+          "dezena": "35",
+          "unidade": "5"
+        },
+        {
+          "pos": 5,
+          "number": "9967",
+          "group_id": 17,
+          "milhar": "9967",
+          "centena": "967",
+          "dezena": "67",
+          "unidade": "7"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "366",
+        "MILHAR": "7366",
+        "UNIDADE": "6",
+        "DEZENA": "66",
+        "DUQUE_DEZ": [
+          "66",
+          "56"
+        ],
+        "TERNO_DEZ": [
+          "66",
+          "56",
+          "49"
+        ],
+        "GRUPO": "17",
+        "DUQUE_GP": [
+          17,
+          14
+        ],
+        "TERNO_GP": [
+          17,
+          14,
+          13
+        ],
+        "QUADRA_GP": [
+          17,
+          14,
+          13,
+          9
+        ],
+        "QUINA_GP": [
+          17,
+          14,
+          13,
+          9,
+          17
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 2,
+      "time_raw": "11:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "7600",
+          "group_id": 25,
+          "milhar": "7600",
+          "centena": "600",
+          "dezena": "00",
+          "unidade": "0"
+        },
+        {
+          "pos": 2,
+          "number": "5718",
+          "group_id": 5,
+          "milhar": "5718",
+          "centena": "718",
+          "dezena": "18",
+          "unidade": "8"
+        },
+        {
+          "pos": 3,
+          "number": "0667",
+          "group_id": 17,
+          "milhar": "0667",
+          "centena": "667",
+          "dezena": "67",
+          "unidade": "7"
+        },
+        {
+          "pos": 4,
+          "number": "4249",
+          "group_id": 13,
+          "milhar": "4249",
+          "centena": "249",
+          "dezena": "49",
+          "unidade": "9"
+        },
+        {
+          "pos": 5,
+          "number": "5202",
+          "group_id": 1,
+          "milhar": "5202",
+          "centena": "202",
+          "dezena": "02",
+          "unidade": "2"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "600",
+        "MILHAR": "7600",
+        "UNIDADE": "0",
+        "DEZENA": "00",
+        "DUQUE_DEZ": [
+          "00",
+          "18"
+        ],
+        "TERNO_DEZ": [
+          "00",
+          "18",
+          "67"
+        ],
+        "GRUPO": "25",
+        "DUQUE_GP": [
+          25,
+          5
+        ],
+        "TERNO_GP": [
+          25,
+          5,
+          17
+        ],
+        "QUADRA_GP": [
+          25,
+          5,
+          17,
+          13
+        ],
+        "QUINA_GP": [
+          25,
+          5,
+          17,
+          13,
+          1
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 2,
+      "time_raw": "14:20",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "7792",
+          "group_id": 23,
+          "milhar": "7792",
+          "centena": "792",
+          "dezena": "92",
+          "unidade": "2"
+        },
+        {
+          "pos": 2,
+          "number": "3048",
+          "group_id": 12,
+          "milhar": "3048",
+          "centena": "048",
+          "dezena": "48",
+          "unidade": "8"
+        },
+        {
+          "pos": 3,
+          "number": "0513",
+          "group_id": 4,
+          "milhar": "0513",
+          "centena": "513",
+          "dezena": "13",
+          "unidade": "3"
+        },
+        {
+          "pos": 4,
+          "number": "4852",
+          "group_id": 13,
+          "milhar": "4852",
+          "centena": "852",
+          "dezena": "52",
+          "unidade": "2"
+        },
+        {
+          "pos": 5,
+          "number": "3608",
+          "group_id": 2,
+          "milhar": "3608",
+          "centena": "608",
+          "dezena": "08",
+          "unidade": "8"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "792",
+        "MILHAR": "7792",
+        "UNIDADE": "2",
+        "DEZENA": "92",
+        "DUQUE_DEZ": [
+          "92",
+          "48"
+        ],
+        "TERNO_DEZ": [
+          "92",
+          "48",
+          "13"
+        ],
+        "GRUPO": "23",
+        "DUQUE_GP": [
+          23,
+          12
+        ],
+        "TERNO_GP": [
+          23,
+          12,
+          4
+        ],
+        "QUADRA_GP": [
+          23,
+          12,
+          4,
+          13
+        ],
+        "QUINA_GP": [
+          23,
+          12,
+          4,
+          13,
+          2
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 2,
+      "time_raw": "16:00",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "6099",
+          "group_id": 25,
+          "milhar": "6099",
+          "centena": "099",
+          "dezena": "99",
+          "unidade": "9"
+        },
+        {
+          "pos": 2,
+          "number": "5534",
+          "group_id": 9,
+          "milhar": "5534",
+          "centena": "534",
+          "dezena": "34",
+          "unidade": "4"
+        },
+        {
+          "pos": 3,
+          "number": "0301",
+          "group_id": 1,
+          "milhar": "0301",
+          "centena": "301",
+          "dezena": "01",
+          "unidade": "1"
+        },
+        {
+          "pos": 4,
+          "number": "6295",
+          "group_id": 24,
+          "milhar": "6295",
+          "centena": "295",
+          "dezena": "95",
+          "unidade": "5"
+        },
+        {
+          "pos": 5,
+          "number": "8710",
+          "group_id": 3,
+          "milhar": "8710",
+          "centena": "710",
+          "dezena": "10",
+          "unidade": "0"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "099",
+        "MILHAR": "6099",
+        "UNIDADE": "9",
+        "DEZENA": "99",
+        "DUQUE_DEZ": [
+          "99",
+          "34"
+        ],
+        "TERNO_DEZ": [
+          "99",
+          "34",
+          "01"
+        ],
+        "GRUPO": "25",
+        "DUQUE_GP": [
+          25,
+          9
+        ],
+        "TERNO_GP": [
+          25,
+          9,
+          1
+        ],
+        "QUADRA_GP": [
+          25,
+          9,
+          1,
+          24
+        ],
+        "QUINA_GP": [
+          25,
+          9,
+          1,
+          24,
+          3
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 2,
+      "time_raw": "18:20",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "3632",
+          "group_id": 8,
+          "milhar": "3632",
+          "centena": "632",
+          "dezena": "32",
+          "unidade": "2"
+        },
+        {
+          "pos": 2,
+          "number": "4930",
+          "group_id": 8,
+          "milhar": "4930",
+          "centena": "930",
+          "dezena": "30",
+          "unidade": "0"
+        },
+        {
+          "pos": 3,
+          "number": "2841",
+          "group_id": 11,
+          "milhar": "2841",
+          "centena": "841",
+          "dezena": "41",
+          "unidade": "1"
+        },
+        {
+          "pos": 4,
+          "number": "4416",
+          "group_id": 4,
+          "milhar": "4416",
+          "centena": "416",
+          "dezena": "16",
+          "unidade": "6"
+        },
+        {
+          "pos": 5,
+          "number": "4920",
+          "group_id": 5,
+          "milhar": "4920",
+          "centena": "920",
+          "dezena": "20",
+          "unidade": "0"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "632",
+        "MILHAR": "3632",
+        "UNIDADE": "2",
+        "DEZENA": "32",
+        "DUQUE_DEZ": [
+          "32",
+          "30"
+        ],
+        "TERNO_DEZ": [
+          "32",
+          "30",
+          "41"
+        ],
+        "GRUPO": "8",
+        "DUQUE_GP": [
+          8,
+          8
+        ],
+        "TERNO_GP": [
+          8,
+          8,
+          11
+        ],
+        "QUADRA_GP": [
+          8,
+          8,
+          11,
+          4
+        ],
+        "QUINA_GP": [
+          8,
+          8,
+          11,
+          4,
+          5
+        ],
+        "SENA_GP": null
+      }
+    },
+    {
+      "loteria_id": 2,
+      "time_raw": "21:20",
+      "date": "26/03/2026",
+      "results": [
+        {
+          "pos": 1,
+          "number": "2778",
+          "group_id": 20,
+          "milhar": "2778",
+          "centena": "778",
+          "dezena": "78",
+          "unidade": "8"
+        },
+        {
+          "pos": 2,
+          "number": "6483",
+          "group_id": 21,
+          "milhar": "6483",
+          "centena": "483",
+          "dezena": "83",
+          "unidade": "3"
+        },
+        {
+          "pos": 3,
+          "number": "0046",
+          "group_id": 12,
+          "milhar": "0046",
+          "centena": "046",
+          "dezena": "46",
+          "unidade": "6"
+        },
+        {
+          "pos": 4,
+          "number": "6139",
+          "group_id": 10,
+          "milhar": "6139",
+          "centena": "139",
+          "dezena": "39",
+          "unidade": "9"
+        },
+        {
+          "pos": 5,
+          "number": "4690",
+          "group_id": 23,
+          "milhar": "4690",
+          "centena": "690",
+          "dezena": "90",
+          "unidade": "0"
+        }
+      ],
+      "modalities": {
+        "CENTENA": "778",
+        "MILHAR": "2778",
+        "UNIDADE": "8",
+        "DEZENA": "78",
+        "DUQUE_DEZ": [
+          "78",
+          "83"
+        ],
+        "TERNO_DEZ": [
+          "78",
+          "83",
+          "46"
+        ],
+        "GRUPO": "20",
+        "DUQUE_GP": [
+          20,
+          21
+        ],
+        "TERNO_GP": [
+          20,
+          21,
+          12
+        ],
+        "QUADRA_GP": [
+          20,
+          21,
+          12,
+          10
+        ],
+        "QUINA_GP": [
+          20,
+          21,
+          12,
+          10,
+          23
+        ],
+        "SENA_GP": null
+      }
+    }
+  ]
+}

@@ -708,8 +708,86 @@ try:
 except ImportError:
     pass  # dotenv optional — fall back to real env vars
 
-WEBHOOK_URL     = os.getenv("WEBHOOK_URL", "")
-WEBHOOK_API_KEY = os.getenv("WEBHOOK_API_KEY", "")
+WEBHOOK_URL          = os.getenv("WEBHOOK_URL", "")
+WEBHOOK_API_KEY      = os.getenv("WEBHOOK_API_KEY", "")
+NORMALIZED_FILE      = os.getenv("NORMALIZED_OUTPUT", "normalized.json")
+
+# ── Loteria ID map (as registered in maiorbicho.com database) ─────────────────
+LOTERIA_ID_MAP: dict[str, int] = {
+    "SRC_LOOK":      1,
+    "SRC_PT_RIO":    2,
+    "SRC_NACIONAL":  3,
+    "SRC_BOA_SORTE": 4,
+    # SRC_LOTEP: not yet registered — skipped automatically
+}
+
+
+def _normalise_draw(draw: dict[str, Any]) -> Optional[dict[str, Any]]:
+    """Transform one raw draw into the exact maiorbicho.com contract shape."""
+    loteria_id = LOTERIA_ID_MAP.get(draw.get("source", ""))
+    if loteria_id is None or not draw.get("results"):
+        return None
+
+    grupo_raw = draw.get("modalities", {}).get("GRUPO")
+    if isinstance(grupo_raw, dict):
+        grupo = str(grupo_raw.get("group_id", ""))
+    else:
+        grupo = str(grupo_raw) if grupo_raw is not None else None
+
+    m = draw.get("modalities", {})
+    return {
+        "loteria_id": loteria_id,
+        "time_raw":   draw.get("time"),
+        "date":       draw.get("date"),
+        "results": [
+            {
+                "pos":      r["pos"],
+                "number":   r["milhar"],
+                "group_id": r["group_id"],
+                "milhar":   r["milhar"],
+                "centena":  r["centena"],
+                "dezena":   r["dezena"],
+                "unidade":  r["unidade"],
+            }
+            for r in draw.get("results", [])
+        ],
+        "modalities": {
+            "CENTENA":   m.get("CENTENA"),
+            "MILHAR":    m.get("MILHAR"),
+            "UNIDADE":   m.get("UNIDADE"),
+            "DEZENA":    m.get("DEZENA"),
+            "DUQUE_DEZ": m.get("DUQUE_DEZ"),
+            "TERNO_DEZ": m.get("TERNO_DEZ"),
+            "GRUPO":     grupo,
+            "DUQUE_GP":  m.get("DUQUE_GP"),
+            "TERNO_GP":  m.get("TERNO_GP"),
+            "QUADRA_GP": m.get("QUADRA_GP"),
+            "QUINA_GP":  m.get("QUINA_GP"),
+            "SENA_GP":   m.get("SENA_GP"),
+        },
+    }
+
+
+def _write_normalized(result: dict[str, Any]) -> list[dict[str, Any]]:
+    """Normalise all draws and write normalized.json. Returns the normalised list."""
+    normalised = [_normalise_draw(d) for d in result.get("draws", [])]
+    normalised = [d for d in normalised if d is not None]
+    output = {
+        "scraped_at": result.get("_meta", {}).get("scraped_at"),
+        "date":       result.get("_meta", {}).get("date"),
+        "total":      len(normalised),
+        "draws":      normalised,
+    }
+    with open(NORMALIZED_FILE, "w", encoding="utf-8") as f:
+        json.dump(output, f, ensure_ascii=False, indent=2)
+    by_id: dict[int, int] = {}
+    for d in normalised:
+        lid = d["loteria_id"]
+        by_id[lid] = by_id.get(lid, 0) + 1
+    names = {1: "LOOK", 2: "PT-RIO", 3: "NACIONAL", 4: "BOA SORTE"}
+    summary = ", ".join(f"{names.get(k,'?')}={v}" for k, v in sorted(by_id.items()))
+    logger.info(f"[normalizer] {len(normalised)} draws -> {NORMALIZED_FILE} ({summary})")
+    return normalised
 
 
 async def _dispatch_webhook(draws: list[dict[str, Any]]) -> None:
@@ -791,7 +869,7 @@ OUTPUT_FILE_DEFAULT = "all.json"
 
 
 async def _scheduled_job() -> None:
-    """One full scrape + webhook dispatch cycle — called by the scheduler."""
+    """One full scrape + normalise + webhook dispatch cycle."""
     logger.info("═" * 60)
     logger.info("[scheduler] Scheduled scrape starting…")
     output_file = os.getenv("SCRAPER_OUTPUT", OUTPUT_FILE_DEFAULT)
@@ -799,7 +877,8 @@ async def _scheduled_job() -> None:
     draws = result.get("draws", [])
     complete = [d for d in draws if not d.get("incomplete")]
     logger.info(f"[scheduler] {len(draws)} draws scraped, {len(complete)} complete")
-    await _dispatch_webhook(draws)
+    normalised = _write_normalized(result)
+    await _dispatch_webhook(normalised)
     logger.info("═" * 60)
 
 
@@ -889,6 +968,6 @@ if __name__ == "__main__":
             ALL_SOURCES[:] = [_find_source_or_raise(args.source_key)]
         output = args.output_file or os.getenv("SCRAPER_OUTPUT", OUTPUT_FILE_DEFAULT)
         result = asyncio.run(run(output_file=output, date_br=args.date_br))
-        # Also dispatch webhook after one-shot if configured
+        normalised = _write_normalized(result)
         if WEBHOOK_URL:
-            asyncio.run(_dispatch_webhook(result.get("draws", [])))
+            asyncio.run(_dispatch_webhook(normalised))
