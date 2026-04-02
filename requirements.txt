@@ -9,6 +9,9 @@ anyio==4.3.0
 # ── Data Validation & Models
 pydantic==2.7.1
 
+# ── Settings
+pydantic-settings==2.2.1
+
 # ── Resilience
 tenacity==8.3.0
 
