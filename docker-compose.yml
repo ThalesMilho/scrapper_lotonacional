@@ -1,12 +1,12 @@
-version: "3.8"
 services:
   bicho-api:
     build: .
     ports:
-      - "8080:8080"
+      - "8080:8000"
     env_file:
       - .env
     volumes:
       - ./data:/app/data
       - ./logs:/app/logs
+    shm_size: "256mb"
     restart: unless-stopped

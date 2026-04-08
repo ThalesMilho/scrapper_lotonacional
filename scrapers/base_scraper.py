@@ -77,7 +77,10 @@ class BaseScraper(ABC):
 
     @staticmethod
     def _extract_time_from_heading(heading: str) -> str:
-        """Extract time token like '14h', '09:20', '11:00' from section headings."""
+        """Extract time token normalised to HH:MM from section headings."""
         import re
-        m = re.search(r"(\d{1,2}[h:]\d{0,2})", heading, re.IGNORECASE)
-        return m.group(1) if m else "00:00"
+        m = re.search(r"\b(\d{1,2})[h:](\d{2})?h?\b", heading, re.IGNORECASE)
+        if not m:
+            return "00:00"
+        hour, minutes = int(m.group(1)), int(m.group(2)) if m.group(2) else 0
+        return f"{hour:02d}:{minutes:02d}"

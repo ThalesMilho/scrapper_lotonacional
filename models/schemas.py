@@ -141,7 +141,8 @@ class DrawSession(BaseModel):
     @property
     def session_id(self) -> str:
         """Unique key: source + date + time."""
-        return f"{self.source_id.value}_{self.draw_date.replace('/','')}"
+        time_part = self.draw_time.replace(":", "")
+        return f"{self.source_id.value}_{self.draw_date.replace('/','')}{time_part}"
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -171,31 +172,69 @@ class ScrapedResult(BaseModel):
 # WEBHOOK PAYLOAD  (what we POST to maiorbichoo.com)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-class WebhookPayload(BaseModel):
-    """
-    Slimmed-down payload sent outbound to maiorbichoo.com.
-    Consumer expects: source, date, time, numbers array.
-    """
+# Mapping from scraper source_id to Laravel loteria_id in DB
+_LOTERIA_ID_MAP: dict = {
+    "look_loterias": 1,
+    "bicho_rj":      2,
+    "boa_sorte":     4,
+}
 
-    source: str
-    draw_date: str
-    draw_time: str
-    banca: Optional[str]
-    state: Optional[str]
-    numbers: List[str]           # 1st-5th milhar values
-    super5: Optional[List[int]]
-    scraped_at_utc: str          # ISO 8601
+
+class DrawResult(BaseModel):
+    pos: int
+    number: str
+
+
+class WebhookDraw(BaseModel):
+    loteria_id: int
+    time_raw: str
+    date: str
+    results: List[DrawResult]
+    modalities: dict
+
+
+class WebhookPayload(BaseModel):
+    scraped_at: str
+    date: str
+    total: int
+    draws: List[WebhookDraw]
 
     @classmethod
-    def from_session(cls, session: DrawSession) -> "WebhookPayload":
+    def from_session(cls, session: "DrawSession") -> "WebhookPayload":
+        loteria_id = _LOTERIA_ID_MAP.get(session.source_id.value, 0)
         top5 = sorted(session.entries, key=lambda e: e.premio)[:5]
-        return cls(
-            source=session.source_id.value,
-            draw_date=session.draw_date,
-            draw_time=session.draw_time,
-            banca=session.banca,
-            state=session.state,
-            numbers=[e.milhar for e in top5],
-            super5=session.super5.numbers if session.super5 else None,
-            scraped_at_utc=session.scraped_at_utc.isoformat() + "Z",
+        results = [DrawResult(pos=e.premio, number=e.milhar) for e in top5]
+        modalities: dict = {}
+        if top5:
+            first = top5[0]
+            modalities["MILHAR"]  = first.milhar
+            modalities["CENTENA"] = first.centena
+            modalities["DEZENA"]  = first.dezena
+            modalities["GRUPO"]   = str(first.grupo).zfill(2) if first.grupo else ""
+        draw = WebhookDraw(
+            loteria_id=loteria_id,
+            time_raw=session.draw_time,
+            date=session.draw_date,
+            results=results,
+            modalities=modalities,
         )
+        return cls(
+            scraped_at=session.scraped_at_utc.isoformat() + "Z",
+            date=session.draw_date,
+            total=1,
+            draws=[draw],
+        )
+
+"""
+models/schemas.py
+─────────────────
+Pydantic v2 models that define the canonical schema for every scraped result.
+Every scraper MUST produce one of these validated objects — nothing else
+is allowed into the storage or API layer.
+
+Hierarchy:
+  DrawEntry        → a single premio row (1º, 2º … 5º or 1º-10º)
+  DrawSession      → one complete extraction at a specific time from one source
+  ScrapedResult    → the top-level envelope pushed to storage / webhook
+"""
+

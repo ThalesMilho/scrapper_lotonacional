@@ -107,10 +107,10 @@ class LotteryHttpClient:
             log.debug(f"Proxy configured: {list(self._proxies.values())[0]}")
 
         self._client = httpx.AsyncClient(
-            headers=_stealth_headers(),
+            headers={},
             timeout=self._timeout,
             follow_redirects=True,
-            http2=True,
+            http2=False,
             proxies=self._proxies,
             **transport_kwargs,
         )
@@ -148,9 +148,6 @@ class LotteryHttpClient:
         assert self._client is not None, "Use as async context manager"
 
         await self._human_delay()
-
-        # Rotate headers per request
-        self._client.headers.update(_stealth_headers())
 
         log.debug(f"GET {url}")
         response = await self._client.get(url, **kwargs)

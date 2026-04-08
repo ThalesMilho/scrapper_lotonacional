@@ -27,8 +27,7 @@ from scrapers.http_client import LotteryHttpClient
 
 log = logging.getLogger("scraper.nacional")
 
-NACIONAL_URL = "https://www.lotonacional.com.br/"
-
+NACIONAL_URL = "https://www.lotonacional.com.br/loteria-federal/resultados/"
 
 class LoterianacionalScraper(BaseScraper):
     source_id = SourceID.LOTERIA_NACIONAL
@@ -44,7 +43,8 @@ class LoterianacionalScraper(BaseScraper):
         # ── Find all result containers
         # The page uses <table> elements; we look for the one(s) containing
         # milhar / bicho data. We try multiple selector strategies in order.
-        tables = self._find_result_tables(soup)
+        tables = [t for t in soup.find_all("table") if "Prêmio" in t.get_text()]
+
 
         if not tables:
             log.warning("Nacional: No result tables found on page.")
@@ -111,6 +111,9 @@ class LoterianacionalScraper(BaseScraper):
                 re.IGNORECASE,
             ):
                 candidates.append(table)
+        if not candidates:
+            candidates = [t for t in soup.find_all("table")
+                          if "milhar" in t.get_text().lower()]
         return candidates
 
     @staticmethod

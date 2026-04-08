@@ -1,33 +1,24 @@
-# Use Python 3.11 slim
-FROM python:3.11-slim
+# =============================================================================
+# BASE: Matched exactly to playwright==1.47.0 in requirements.txt
+# =============================================================================
+FROM mcr.microsoft.com/playwright/python:v1.47.0-jammy
 
-# Set workdir
 WORKDIR /app
 
-# Install system deps for Playwright
-RUN apt-get update && apt-get install -y \
-    wget \
-    gnupg \
-    ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install Python deps
+# Dependency layer (cached — only invalidates if requirements.txt changes)
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
 
-# Install Playwright browsers
-RUN playwright install --with-deps chromium
+# Browser binaries only — no --with-deps (base image handles system libs)
+RUN playwright install chromium
 
-# Copy app files
+# Source code (most frequently changing — copied last)
 COPY . .
 
-# Create non-root user
-RUN useradd --create-home --shell /bin/bash app
-RUN chown -R app:app /app
-USER app
+EXPOSE 8000
 
-# Expose API port
-EXPOSE 8080
+# Non-root user shipped by the Playwright image
+USER pwuser
 
-# Default: run API server
-CMD ["python", "api_server.py"]
+CMD ["uvicorn", "api_server:app", "--host", "0.0.0.0", "--port", "8000"]
